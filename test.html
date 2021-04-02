@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+canvas {
+    border: 1px solid #d3d3d3;
+    background-color: #b844444d; 
+    height: 80%;
+    width: 80%;
+}
+</style>
+</head>
+<body onload="startGame()">
+<script>
+
+   
+    var player; //Variable joueur
+    var timerfall = 0;
+    var platforme=[];
+    var alphawann = 0
+    //var vect1 = createVector(1, 0);
+    
+
+function startGame() {// Fonction au lancement du jeu
+    myGameArea.start(); // mise en place du canneva
+    player = new component(30, 30, "red", 100, 100); //création du joueur
+    platforme[0]= new component(10000, 30, "blue", 0, 500);//création des platformes
+    platforme[1]= new component(30, 10000, "blue", 500, 0);
+    platforme[2]= new component(30, 10000, "blue", 0, 0);
+
+
+}
+
+function component(width, height, color, x, y) { // création d'un objet
+  this.width = width;//largeur de l'objet
+  this.height = height;//hauteur de l'objet
+  this.x = x;// Coordonée en x de l'objet
+  this.y = y;//Coordonée en y de l'objet
+  this.speedX = 0;//Vitesse de l'objet en X
+  this.speedY = 0;//Vitesse de l'objet en Y
+  this.update = function(){// affichage de l'objet
+    ctx = myGameArea.context;
+    ctx.fillStyle = color;// couleur de l'objet
+    ctx.fillRect(this.x, this.y, this.width, this.height);// affichage de l'objet
+  }
+  this.newPos = function() { //Calcul  de la nouvelle position de l'objet a chaque frame en fonction de la vitesse
+    this.x += this.speedX;// 
+    this.y += this.speedY;
+  }
+}
+
+
+var myGameArea = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+         this.canvas.width = 1000;// Taille du canneva dynamique
+         this.canvas.height = (1000)/(16/9);
+        this.context = this.canvas.getContext("2d");
+        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+        this.interval = setInterval(updateGameArea, 16.7);
+
+        window.addEventListener('keydown', function (e) {// Gestion du clavier
+        myGameArea.keys = (myGameArea.keys || []);
+        myGameArea.keys[e.keyCode] = true;
+        })
+        window.addEventListener('keyup', function (e) {
+        myGameArea.keys[e.keyCode] = false;
+        })
+
+    },
+        
+    clear : function() {
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);// Fonction pour nettoyer le canneva a chaque frame
+  }
+}
+
+
+function updateGameArea(){//fonction main, lue a chaque chaque frame
+    myGameArea.clear()
+    playermove();
+    collide();
+    
+    player.newPos();
+    player.update();
+    timerfall++;
+    for (var i = 0; i < platforme.length; i++){
+        platforme[i].update();
+    }
+    
+}
+
+function playermove(){//déplacement du joueur
+    
+    if (myGameArea.keys && myGameArea.keys[37]) {
+        if(player.speedX > 0 ){ 
+            player.speedX = 0
+        }
+        player.speedX -=0.2; 
+        
+    }  else if (myGameArea.keys && myGameArea.keys[39]) {
+        if(player.speedX < 0 ){ 
+            player.speedX = 0
+        }
+        player.speedX += 0.2; 
+        
+    } else{ player.speedX = 0}
+        if (player.speedX>8){
+            player.speedX=8
+        }
+    if (player.speedX<-8){
+        player.speedX=-8
+    }
+    
+    if ((myGameArea.keys && myGameArea.keys[37]) && (myGameArea.keys && myGameArea.keys[39])) {
+        player.speedX = 0; 
+    }
+    if (myGameArea.keys && myGameArea.keys[32]) {
+        
+        player.speedY = -1; 
+    }
+    if (myGameArea.keys && myGameArea.keys[40]) {
+        
+        player.speedY = 1; 
+    }
+
+    if (myGameArea.keys && myGameArea.keys[32]){
+        // chercher le vecteur vect0 en fonction de vx et vy vect=vectx+vecty
+        //var vect = Maths.createVector(player.x,player.y)
+        // Calculer l'angle entre vect1 et v0
+        //alphawann=vect1.angleBetween(vect)
+        timerfall = -80  
+        
+    } else {alphawann = 0;}
+    // gestion de la chute
+      player.speedY = +(1/2)*5*timerfall/16.7 - player.speedX * Math.cos(alphawann) * timerfall/16.7 
+    console.log(alphawann)
+    // gestion du saut
+
+    
+
+}
+
+function collide(){// collision du joueur
+    for (var i = 0; i < platforme.length; i++){ //
+        
+        
+        if (player.x + player.width > platforme[i].x &&  player.y + player.height > platforme[i].y - 10 && player.y < platforme[i].y + platforme[i].height && player.x < platforme[i].x + platforme[i].width) {
+            
+            if (player.y < platforme[i].y){
+                player.y = platforme[i].y - player.height;
+                timerfall=0
+                //player.speedY=0
+            }
+            
+            if (player.y > platforme[i].y+platforme[i].height){
+                player.y = platforme[i].y + player.height;
+            }
+            if (player.x < platforme[i].x){
+                player.x = platforme[i].x - player.width;
+                player.speedX = 0
+            } 
+            if (player.x+player.width > platforme[i].x + platforme[i].width ){
+                player.x = platforme[i].x + platforme[i].width ;
+                
+                
+                 player.speedX = 0
+            } 
+            
+        }
+    }
+}
+
+</script>
+
+</body>
+</html>
