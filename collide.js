@@ -29,7 +29,7 @@ function testcollide(obj1 = new component((width, height, color, x, y)), obj2 =n
         
     }
 
-function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik,ennemi, ennemiTime){
+function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik,ennemi ){
     for (var i = 0; i < platforme.length; i++){
         
         for (var y = 0; y < ennemi.length; y++) {
@@ -37,13 +37,13 @@ function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik
             var collideEnnemyplatform = testcollide(ennemi[y],platforme[i])
         
             if (collideEnnemyplatform == "gauche") {
-                ennemiTime = 500;
+                ennemi[y].time = 500;
                 console.log("gauche");
             }
 
             if (collideEnnemyplatform == "droite"){
                 console.log("droite");
-                ennemiTime = 0;
+                ennemi[y].time = 0;
             }
             if (collideEnnemyplatform == "bas"){
                 ennemi[y].speedY = 0;
@@ -102,10 +102,9 @@ function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik
 
         for (var i = 0; i < ennemi.length; i++) {
             for (var y = 0; y < piegepik.length; y++) {
-                var collideEnnemypickpick = testcollide(ennemi[i],piegepik[y])
-                if (collideEnnemypickpick != null) {
-                    console.log("mort")
-                    delete ennemi[i]
+                
+                if (testcollide(ennemi[i],piegepik[y]) != null) {
+                   ennemi.splice(i,1)
                 } 
 
 
@@ -118,7 +117,7 @@ function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik
             
         
 
-    return [timerfall,nbjump,jump,walljumptimer,player,platforme,piegepik, ennemi, ennemiTime]
+    return [timerfall,nbjump,jump,walljumptimer,player,platforme,piegepik, ennemi]
 }
 
 

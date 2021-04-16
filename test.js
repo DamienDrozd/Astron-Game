@@ -1,8 +1,8 @@
 export {startGame, vector, reset}
 import {collide, testcollide} from './collide.js';
 import {playermove} from './player.js';
-import {ennemimove} from './ennemi.js'
-    
+import {ennemimove} from './ennemi.js';
+// import {playerShoot} from './weapon.js';
     var player; //Variable joueur
     
     var platforme=[];
@@ -18,7 +18,7 @@ import {ennemimove} from './ennemi.js'
     var gameanim = true
     var tmort = 100
     var ennemi = [] //Variable ennemi
-    var ennemiTime = 1
+    
     
     
     
@@ -41,16 +41,16 @@ function updateGameArea(){//fonction main, lue a chaque chaque frame
     level[numerolevel].update();
     camera()
 
-    ennemiTime++;
+    
 
     for (var i = 0; i < ennemi.length; i++){
         ennemi[i].time++
     }
 
 
-    var ennemimovetab = ennemimove(ennemi, ennemiTime)
-    ennemi = ennemimovetab[0]
-    ennemiTime = ennemimovetab[1]
+    ennemi = ennemimove(ennemi)
+     
+    
     
     
 
@@ -64,14 +64,14 @@ function updateGameArea(){//fonction main, lue a chaque chaque frame
     player= playermovetab[5]
     platforme = playermovetab[6]
     
-    var collidetab = collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik, ennemi, ennemiTime)
+    var collidetab = collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik, ennemi)
     // timerfall,nbjump,jump,walljumptimer,player,platforme
     timerfall = collidetab[0]
     nbjump = collidetab[1]
     jump = collidetab[2]
     walljumptimer = collidetab[3]
     player = collidetab[4]
-    ennemiTime = collidetab[8]
+    
 
     
     
@@ -89,7 +89,6 @@ function updateGameArea(){//fonction main, lue a chaque chaque frame
         piegepik[i].newPos();
         piegepik[i].update();
     }
-    console.log(ennemi)
     for (var i = 0; i < ennemi.length; i++){
         ennemi[i].newPos();
         ennemi[i].update();
@@ -263,13 +262,14 @@ level[0] = {
         platforme[66]= new component(27, 29, "blue", 1034, 1940);
         platforme[67]= new component(91, 27, "blue", 1282, 1814); //platform suspendu
         platforme[68]= new component(91, 27, "blue", 720, 1751);
+        platforme[69]= new component(30, 30, "white", 950, 440)
         
         endlevel = new component(100, 100,"white",0,1900);
         /* --------- piège ------- */
         piegepik[0] = new component(120, 20,"white",720,480);
         /*---------- ennemie-------*/
         ennemi[0] = new component(30, 30, "red", 900, 440);
-        ennemi[1] = new component(30, 30, "red", 50, 440)
+
         
 
         this.x = 0

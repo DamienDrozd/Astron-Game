@@ -2,8 +2,8 @@ import {vector} from './test.js';
 export{playermove}
 
 
-
 function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platforme, myGameArea){//déplacement du joueur
+    
     
     //--------------------------Gestion des sauts/double saut--------------------------------------------------
     if (myGameArea.keys && myGameArea.keys[32]) {
@@ -15,9 +15,10 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
             nbjump++
             jump = false
             walljumptimer = 0
+            
         
         }
-        if (nbjump == 2 && jump == true && walljump == false){// deuxième saut
+        if (nbjump == 1 && jump == true && walljump == false){// deuxième saut
             
             player.accumulationY = -150; 
             timerfall = 0;
@@ -29,11 +30,8 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
     
         
     }   else {
-
-        if (timerfall < 40 && jump == true){
-            timerfall = 40
-            nbjump++; 
-        }
+        console.log(nbjump)
+        
         jump = true;
         walljumptimer = 0
     }
@@ -53,7 +51,7 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
                 
                 
                     
-                    player.accumulationY -= 250  ; 
+                    player.accumulationY -= 100  ; 
                     player.speedX = -20;
                     
                     walljump = false

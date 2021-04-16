@@ -1,19 +1,19 @@
 export {ennemimove}
 
 
-function ennemimove(ennemi, ennemiTime){
+function ennemimove(ennemi){
     for (var i = 0; i < ennemi.length; i++){
-        if (ennemiTime < 500) {
+        if (ennemi[i].time < 500) {
             ennemi[i].speedX = 1;
-            ennemiTime = ennemiTime + 1;
-        } else if (ennemiTime > 500 && ennemiTime < 1000) {
+            ennemi[i].time = ennemi[i].time + 1;
+        } else if (ennemi[i].time > 500 && ennemi[i].time < 1000) {
             ennemi[i].speedX = -1;
-            ennemiTime = ennemiTime + 1
-        } else if (ennemiTime > 1000) {
-            ennemiTime -= 1000;
+            ennemi[i].time = ennemi[i].time + 1
+        } else if (ennemi[i].time > 1000) {
+            ennemi[i].time -= 1000;
         }
         
     }
-        return [ennemi, ennemiTime]
+        return ennemi
         
     }
