@@ -1,4 +1,4 @@
-
+import{reset} from './test.js'
 export{collide, testcollide}
 
 
@@ -29,10 +29,32 @@ function testcollide(obj1 = new component((width, height, color, x, y)), obj2 =n
         
     }
 
-function collide(timerfall,jump,walljumptimer,player, platforme,nbjump){
+function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik,ennemi, ennemiTime){
     for (var i = 0; i < platforme.length; i++){
+        
+        for (var y = 0; y < ennemi.length; y++) {
+            
+            var collideEnnemyplatform = testcollide(ennemi[y],platforme[i])
+        
+            if (collideEnnemyplatform == "gauche") {
+                ennemiTime = 500;
+                console.log("gauche");
+            }
+
+            if (collideEnnemyplatform == "droite"){
+                console.log("droite");
+                ennemiTime = 0;
+            }
+            if (collideEnnemyplatform == "bas"){
+                ennemi[y].speedY = 0;
+            }
+        }
+
+
+
         var collidepos = testcollide(player,platforme[i])
-        //console.log(collidepos)
+
+
         if (collidepos == "bas"){
             player.y = platforme[i].y - player.height;
             timerfall=0
@@ -60,13 +82,43 @@ function collide(timerfall,jump,walljumptimer,player, platforme,nbjump){
                 player.speedX=0
             }
         }
-        
+    }
+    for (var i = 0; i < ennemi.length; i++){
+        var collideEnnemy = testcollide(player,ennemi[i])
+        if (collideEnnemy != null ){
             
-        
+            reset()         
+        }
     }
 
+    for (var i = 0; i < piegepik.length; i++){
+        var pikPik = testcollide(player, piegepik[i])
+        if (pikPik != null){
+            reset()  
+        }   
+    }  
     
 
-    
-    return [timerfall,nbjump,jump,walljumptimer,player,platforme]
+
+        for (var i = 0; i < ennemi.length; i++) {
+            for (var y = 0; y < piegepik.length; y++) {
+                var collideEnnemypickpick = testcollide(ennemi[i],piegepik[y])
+                if (collideEnnemypickpick != null) {
+                    console.log("mort")
+                    delete ennemi[i]
+                } 
+
+
+
+            }
+
+
+        }
+       
+            
+        
+
+    return [timerfall,nbjump,jump,walljumptimer,player,platforme,piegepik, ennemi, ennemiTime]
 }
+
+
