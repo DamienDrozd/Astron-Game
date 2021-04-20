@@ -14,7 +14,7 @@ import {ennemimove} from './ennemi.js';
     var piegepik = []
     var endlevel
     var level = []
-    var numerolevel = 1
+    var numerolevel = 0
     var gameanim = true
     var tmort = 100
     var ennemi = [] //Variable ennemi
