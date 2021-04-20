@@ -13,7 +13,6 @@ function testcollide(obj1 = new component((width, height, color, x, y)), obj2 =n
             }
             //colision avec platforme au-dessus
             if (obj1.y > obj2.y && obj1.y > obj2.y + obj2.height-10){
-                console.log(obj1.y, obj2.y+obj2.height+10)
                 return "haut"
             }
             //colision avec platforme de droite
@@ -28,6 +27,7 @@ function testcollide(obj1 = new component((width, height, color, x, y)), obj2 =n
         } 
         
     }
+    var chute = false
 
 function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik,ennemi ){
     for (var i = 0; i < platforme.length; i++){
@@ -38,11 +38,11 @@ function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik
         
             if (collideEnnemyplatform == "gauche") {
                 ennemi[y].time = 500;
-                console.log("gauche");
+                
             }
 
             if (collideEnnemyplatform == "droite"){
-                console.log("droite");
+                
                 ennemi[y].time = 0;
             }
             if (collideEnnemyplatform == "bas"){
@@ -56,15 +56,18 @@ function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik
 
 
         if (collidepos == "bas"){
-            player.y = platforme[i].y - player.height;
-            timerfall=0
-            nbjump = 0
-            // jump = false
-            //player.accumulationY = 0
+                
+                chute = true
+                player.y = platforme[i].y - player.height+1;
+                timerfall=0
+                nbjump = 0
+                //jump = false
+                player.accumulationY = 0
+                //player.accumulationY console.log("bas")
+                if(walljumptimer>0){
+                    walljumptimer = 0
+                }
             
-            if(walljumptimer>0){
-                walljumptimer = 0
-            }
         }
         if (collidepos == "haut"){
             player.y = platforme[i].y + platforme[i].height +1 ;
@@ -114,9 +117,16 @@ function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik
 
 
         }
-       
-            
         
+        
+     
+
+            
+    if (chute == false && timerfall == 0){
+         timerfall ++
+        
+    }
+        chute = false
 
     return [timerfall,nbjump,jump,walljumptimer,player,platforme,piegepik, ennemi]
-}
+} 
