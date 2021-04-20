@@ -1,8 +1,8 @@
-export {startGame, vector, reset, component, myGameArea}
+export {startGame, vector, reset, component}
 import {collide, testcollide} from './collide.js';
 import {playermove} from './player.js';
 import {ennemimove} from './ennemi.js';
-import {playerShoot} from './weapon.js';
+// import {playerShoot} from './weapon.js';
     var player; //Variable joueur
     
     var platforme=[];
@@ -40,7 +40,6 @@ function updateGameArea(){//fonction main, lue a chaque chaque frame
     
     level[numerolevel].update();
     camera()
-    playerShoot()
 
     
 
