@@ -426,12 +426,12 @@ function camera(){
     }
 
 
-    if (player.y<=100 || player.y>=500 ){
+    if (player.y<=100 || player.y>=400 ){
         if (player.y<100){
             player.y = 100
         }
-        if (player.y>500){
-            player.y = 500
+        if (player.y>400){
+            player.y = 400
         }
         
         player.y  -= player.speedY
