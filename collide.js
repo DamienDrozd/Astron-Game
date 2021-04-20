@@ -1,4 +1,4 @@
-import{reset} from './test.js'
+import{dieanim} from './test.js'
 export{collide, testcollide}
 
 
@@ -89,16 +89,20 @@ function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik
     }
     for (var i = 0; i < ennemi.length; i++){
         var collideEnnemy = testcollide(player,ennemi[i])
+         
         if (collideEnnemy != null ){
             
-            reset()         
+            requestAnimationFrame(dieanim)       
         }
     }
 
     for (var i = 0; i < piegepik.length; i++){
         var pikPik = testcollide(player, piegepik[i])
+       
+
         if (pikPik != null){
-            reset()  
+            
+            requestAnimationFrame(dieanim) 
         }   
     }  
     
@@ -122,6 +126,7 @@ function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik
      
 
             
+
     if (chute == false && timerfall == 0){
          timerfall ++
         

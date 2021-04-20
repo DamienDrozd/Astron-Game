@@ -38,7 +38,7 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
         
         stopjump = false
         jump = true;
-        walljumptimer = 0
+        // walljumptimer = 0
         
     }
     
@@ -60,11 +60,11 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
                     audio.play();
                     player.accumulationY = -100  ; 
                     player.speedX = -20;
-                    
+                    timerfall = 1;
                     walljump = false
                     jump = false
                     walljumptimer=1
-                    timerfall = 1;
+                    
                     
                 
                 } 
@@ -98,7 +98,7 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
 
     }
 
-    console.log(player.accumulationY)
+ 
 
     if (walljumptimer > 0){
         walljumptimer++;
@@ -157,9 +157,11 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
     if ((myGameArea.keys && myGameArea.keys[81]) && (myGameArea.keys && myGameArea.keys[68])) {
         player.accumulationX = 0; 
     }
-
-    if (walljumptimer == 0 || walljumptimer>20){
+    
+    if (walljumptimer == 0 || walljumptimer>10){
         player.speedX+=player.accumulationX
+    } else{
+        player.accumulationX = 0
     }
     
     

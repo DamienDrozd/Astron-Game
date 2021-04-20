@@ -1,4 +1,4 @@
-export {startGame, vector, reset, component}
+export {startGame, vector, dieanim, component}
 import {collide, testcollide} from './collide.js';
 import {playermove} from './player.js';
 import {ennemimove} from './ennemi.js';
@@ -200,7 +200,7 @@ var myGameArea = {
 
 level[0] = {
     start : function(){
-        player = new component(25, 25, "red", 100, 0,"PlayerStandingFace"); //création du joueur
+        player = new component(25, 25, "red", 0, 420,"PlayerStandingFace"); //création du joueur
         platforme[0]= new component(30, 2000, "blue", 0, 0); //wall
         platforme[1]= new component(30, 2000, "blue", 1970, 0);
         platforme[2]= new component(720, 30, "blue", 0, 470); //sole
@@ -426,12 +426,12 @@ function camera(){
     }
 
 
-    if (player.y<=100 || player.y>=400 ){
+    if (player.y<=100 || player.y>=450 ){
         if (player.y<100){
             player.y = 100
         }
-        if (player.y>400){
-            player.y = 400
+        if (player.y>450){
+            player.y = 450
         }
         
         player.y  -= player.speedY
@@ -452,31 +452,41 @@ function camera(){
     
 }
 
-function reset(){
-    
-    
-    
-    requestAnimationFrame(dieanim)
-    
-    
-    
-        
 
-}
+    
+    
+    
+    
+    
+    
+
 
     
 function dieanim(){
     
     var audio = new Audio('sprite\\Audio\\Die.wav');
-    
+    var ctx = myGameArea.canvas.getContext("2d");
+    var img = document.getElementById("PlayerDead");    
     if (mortaudio == true ) {
             audio.play();
             mortaudio = false
-        }
+            var x = player.x-player.width*0.3
+            var y = player.y-player.height/2
+            var width = player.width*1.5
+            var height = player.height*1.5
+    }
+    
+    ctx.drawImage(img,x ,y ,width ,height )
+    console.log("test")
+    
+   
     
 
-    player.image = "PlayerDead"
+    player.image = null
     player.update();
+    level[numerolevel].start()
+    // console.log("test")
+
     tmort--
     if(tmort>0 ){
         
