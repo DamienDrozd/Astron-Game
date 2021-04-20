@@ -1,8 +1,8 @@
-export {startGame, vector, reset}
+export {startGame, vector, reset, component, myGameArea}
 import {collide, testcollide} from './collide.js';
 import {playermove} from './player.js';
 import {ennemimove} from './ennemi.js';
-// import {playerShoot} from './weapon.js';
+import {playerShoot} from './weapon.js';
     var player; //Variable joueur
     
     var platforme=[];
@@ -40,6 +40,7 @@ function updateGameArea(){//fonction main, lue a chaque chaque frame
     
     level[numerolevel].update();
     camera()
+    playerShoot()
 
     
 
@@ -95,12 +96,21 @@ function updateGameArea(){//fonction main, lue a chaque chaque frame
         ennemi[i].speedY = 1;
 
     }
+    
      
     endlevel.newPos()
     endlevel.update()
+
+    if(myGameArea.keys && myGameArea.keys[27]){
+        if (requestAnimationFrame(pause) == false ){
+            requestAnimationFrame(pause)
+        }
+    }
    
     if (gameanim == true){
-        requestAnimationFrame(updateGameArea);
+        //if (requestAnimationFrame(updateGameArea) == false ){
+            requestAnimationFrame(updateGameArea);
+        //}
     }
 }
 
@@ -142,7 +152,7 @@ function component(width, height, color, x, y, image) { // création d'un objet
     
     var ctx2 = myGameArea.context;
     ctx2.fillStyle = this.color;// couleur de l'objet
-    ctx2.fillRect(this.x, this.y, this.width, this.height);// affichage de l'objet
+    ctx2.fillRect(this.x, this.y, this.width, this.height);// affichage de l'objet 
 
     if(this.image != null){
         var ctx = myGameArea.canvas.getContext("2d");
@@ -262,7 +272,6 @@ level[0] = {
         platforme[66]= new component(27, 29, "blue", 1034, 1940);
         platforme[67]= new component(91, 27, "blue", 1282, 1814); //platform suspendu
         platforme[68]= new component(91, 27, "blue", 720, 1751);
-        platforme[69]= new component(30, 30, "white", 950, 440)
         
         endlevel = new component(100, 100,"white",0,1900);
         /* --------- piège ------- */
@@ -403,4 +412,24 @@ function dieanim(){
         
         
     }
+}
+
+function pause(){
+    
+    
+        
+    if(myGameArea.keys && myGameArea.keys[13]){
+        
+        gameanim = true
+        requestAnimationFrame(updateGameArea);
+        
+        
+        
+    } else {
+        gameanim = false
+        requestAnimationFrame(pause)
+    }
+        
+    
+    
 }

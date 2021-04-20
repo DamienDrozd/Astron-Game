@@ -51,7 +51,7 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
                 
                 
                     
-                    player.accumulationY -= 100  ; 
+                    player.accumulationY -= 200  ; 
                     player.speedX = -20;
                     
                     walljump = false
@@ -71,7 +71,7 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
                 
                 
                         
-                    player.accumulationY = -400  ; 
+                    player.accumulationY -= 200  ; 
                     player.speedX = 20;
                     
                     walljump = false
