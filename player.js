@@ -1,25 +1,30 @@
 import {vector} from './test.js';
 export{playermove}
 
+var stopjump = false
 
 function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platforme, myGameArea){//déplacement du joueur
     
+    var audio = new Audio('sprite\\Audio\\jump2.wav');
     
+    
+        
+            
     //--------------------------Gestion des sauts/double saut--------------------------------------------------
     if (myGameArea.keys && myGameArea.keys[32]) {
         
-        if (nbjump == 0 && jump == false){//premier saut
+        if (nbjump == 0 && jump == true && stopjump == false){//premier saut
             
             player.accumulationY = -150; 
-            
+            audio.play();
             nbjump++
             jump = false
             walljumptimer = 0
-            
+            stopjump = true
         
         }
         if (nbjump == 1 && jump == true && walljump == false){// deuxième saut
-            
+            audio.play();
             player.accumulationY = -150; 
             timerfall = 0;
             jump = false;
@@ -30,11 +35,13 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
     
         
     }   else {
-        console.log(nbjump)
         
+        stopjump = false
         jump = true;
         walljumptimer = 0
+        
     }
+    
 
 
    
@@ -50,7 +57,7 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
                 if (myGameArea.keys && myGameArea.keys[32] && jump == true) {
                 
                 
-                    
+                    audio.play();
                     player.accumulationY -= 200  ; 
                     player.speedX = -20;
                     
@@ -70,7 +77,7 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
                 if (myGameArea.keys && myGameArea.keys[32] && jump == true) {
                 
                 
-                        
+                    audio.play();
                     player.accumulationY -= 200  ; 
                     player.speedX = 20;
                     
@@ -181,7 +188,10 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
         }
         
     } 
-
+    console.log(timerfall)
+    if(timerfall == 1){
+        player.accumulationY = 0;
+    }
     
     return [timerfall,jump,walljumptimer, nbjump,walljump ,player, platforme]
 }

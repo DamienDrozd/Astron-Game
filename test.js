@@ -4,7 +4,7 @@ import {playermove} from './player.js';
 import {ennemimove} from './ennemi.js';
 // import {playerShoot} from './weapon.js';
     var player; //Variable joueur
-    
+    var release = true
     var platforme=[];
     var timerfall = 0;
     var jump = false;
@@ -18,6 +18,7 @@ import {ennemimove} from './ennemi.js';
     var gameanim = true
     var tmort = 100
     var ennemi = [] //Variable ennemi
+    var mortaudio = true
     
     
     
@@ -55,7 +56,7 @@ function updateGameArea(){//fonction main, lue a chaque chaque frame
     
 
 
-    var playermovetab = playermove(timerfall,jump,walljumptimer, nbjump ,walljump ,player, platforme , myGameArea);
+    var playermovetab = playermove(timerfall,jump,walljumptimer, nbjump ,walljump ,player, platforme , myGameArea, release);
     timerfall = playermovetab[0]
     jump= playermovetab[1]
     walljumptimer = playermovetab[2]
@@ -63,6 +64,7 @@ function updateGameArea(){//fonction main, lue a chaque chaque frame
     walljump= playermovetab[4]
     player= playermovetab[5]
     platforme = playermovetab[6]
+    release = playermovetab[7]
     
     var collidetab = collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik, ennemi)
     // timerfall,nbjump,jump,walljumptimer,player,platforme
@@ -107,16 +109,16 @@ function updateGameArea(){//fonction main, lue a chaque chaque frame
     }
    
     if (gameanim == true){
-        //if (requestAnimationFrame(updateGameArea) == false ){
+        if (requestAnimationFrame(updateGameArea) == false ){
             requestAnimationFrame(updateGameArea);
-        //}
+        }
     }
 }
 
 
 function changelevel(testcollide,player,endlevel){
     if (testcollide(player, endlevel)!= null){
-        reset()
+        
         platforme = []
         endlevel = 0
         numerolevel++
@@ -278,7 +280,8 @@ level[0] = {
         /*---------- ennemie-------*/
         ennemi[0] = new component(30, 30, "red", 900, 440);
 
-        
+        var music = new Audio('sprite\\Audio\\MusicLoop.mp3');
+        //music.play()
 
         this.x = 0
         this.y = 0
@@ -381,9 +384,10 @@ function camera(){
 function reset(){
     
     
-    if (requestAnimationFrame(dieanim) ==false ){
-        requestAnimationFrame(dieanim)
-    }
+    
+    requestAnimationFrame(dieanim)
+    
+    
     
         
 
@@ -392,14 +396,61 @@ function reset(){
     
 function dieanim(){
     
+    var audio = new Audio('sprite\\Audio\\Die.wav');
+    
+    if (mortaudio == true ) {
+            audio.play();
+            mortaudio = false
+        }
+    
+
     player.image = "PlayerDead"
     player.update();
     tmort--
-    if(tmort>0){
+    if(tmort>0 ){
+        
         gameanim = false
         requestAnimationFrame(dieanim)
-    } else{
         
+    } else if (tmort == 0){
+        
+        gameanim = true
+        tmort = 100
+
+        player.speedX = 0
+        player.speedY = 0
+        level[numerolevel].start()
+        mortaudio = true
+
+        requestAnimationFrame(updateGameArea);
+        
+        
+        
+        
+    }
+}
+
+function pause(){
+    
+    
+    
+    
+    if(myGameArea.keys && myGameArea.keys[13] && gameanim == false){
+        var audio = new Audio('sprite\\Audio\\CloseMenu.ogg');
+        console.log("test")
+        audio.play();
+        gameanim = true
+        if (requestAnimationFrame(updateGameArea) == false){
+            requestAnimationFrame(updateGameArea);
+        }
+        
+    
+        
+            
+        
+    } else if (myGameArea.keys && myGameArea.keys[8] && gameanim == false) {
+        var audio = new Audio('sprite\\Audio\\Jump.wav');
+        audio.play();
         gameanim = true
         tmort = 100
         
@@ -409,24 +460,17 @@ function dieanim(){
         player.speedY = 0
         level[numerolevel].start()
         
-        
-    }
-}
 
-function pause(){
-    
-    
-        
-    if(myGameArea.keys && myGameArea.keys[13]){
-        
-        gameanim = true
-        requestAnimationFrame(updateGameArea);
-        
-        
-        
     } else {
+
+        var ctx = myGameArea.canvas.getContext("2d");
+        var img = document.getElementById("PauseMenu");
+        ctx.drawImage(img, 0, 0, 1000, 1000/(16/9));
+
         gameanim = false
-        requestAnimationFrame(pause)
+        
+            requestAnimationFrame(pause)
+        
     }
         
     
