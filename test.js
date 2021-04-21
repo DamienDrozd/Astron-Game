@@ -19,7 +19,8 @@ import {ennemimove} from './ennemi.js';
     var tmort = 100
     var ennemi = [] //Variable ennemi
     var mortaudio = true
-    
+    var affichagex
+    var affichagey
     
     
     
@@ -41,7 +42,7 @@ function updateGameArea(){//fonction main, lue a chaque chaque frame
     level[numerolevel].update();
     camera()
 
-    
+    raf();
 
     for (var i = 0; i < ennemi.length; i++){
         ennemi[i].time++
@@ -150,6 +151,8 @@ function component(width, height, color, x, y, image) { // création d'un objet
   this.color = color;
   this.image = image
   this.time = 0;
+  this.affichagex=0;
+  this.affichagey=0;
   this.update = function(){// affichage de l'objet
     
     var ctx2 = myGameArea.context;
@@ -455,11 +458,6 @@ function camera(){
 
     
     
-    
-    
-    
-    
-
 
     
 function dieanim(){
@@ -470,22 +468,26 @@ function dieanim(){
     if (mortaudio == true ) {
             audio.play();
             mortaudio = false
-            var x = player.x-player.width*0.3
-            var y = player.y-player.height/2
-            var width = player.width*1.5
-            var height = player.height*1.5
+            
+            
+            affichagex = player.x-player.width*0.3
+            affichagey = player.y-player.height/2
+            
+            
     }
+    ctx.drawImage(img,affichagex ,affichagey , 30*1.3, 30*1.3 )
     
-    ctx.drawImage(img,x ,y ,width ,height )
-    console.log("test")
+   
     
    
     
 
     player.image = null
     player.update();
-    level[numerolevel].start()
-    // console.log("test")
+    player.x = 0
+    player.y = 0
+    player.width = 0
+    player.height = 0
 
     tmort--
     if(tmort>0 ){
@@ -557,3 +559,23 @@ function pause(){
     
     
 }
+
+
+let i = 0;
+const start = Date.now();
+const stop = start + 5000;
+
+function raf() {
+  requestAnimationFrame(() => {
+    const now = Date.now();
+    if (now < stop){
+      i++;
+      raf();
+    }else{
+      const elapsedSeconds = (now - start) / 1000;
+      console.log('Frame rate is: %f fps', i / elapsedSeconds);
+    }
+  });
+}
+
+console.log('Testing frame rate...')
