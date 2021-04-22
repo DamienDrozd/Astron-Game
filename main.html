@@ -12,11 +12,15 @@ canvas {
 }
 </style>
 </head>
-
+<!--------------------------------------------Chargement des modules--------------------------------------->
 <script type="module" src="player.js"></script>
-<script type="module" src="utilitaires.js"></script>
+<script type="module" src="weapon.js"></script>
+<script type="module" src="ennemi.js"></script>
+<script type="module" src="player.js"></script>
 <script type="module" src="collide.js"></script>
+<script type="module" src="object.js"></script>
 <body >
+    <!------------------------------------ chargement des images ------------------------------------------------>
     <img id="level1" width="0" height="0" src="sprite\Map\MapFinale.png">
     <img id="level2" width="0" height="0" src="sprite\Map\MapFinale2.png">
     <img id="PlayerFall" width="0" height="0" src="sprite\Character\PlayerFall.png">
@@ -40,17 +44,17 @@ canvas {
     <img id="Ennemi1" width="0" height="0" src="sprite\Ennemies\Enemy1Idle.png">
     <img id="Ennemi2" width="0" height="0" src="sprite\Ennemies\Enemy2Idle.png">
     <img id="Ennemi3" width="0" height="0" src="sprite\Ennemies\Enemy3Idle.png">
-
+    
 <script type="module" >
 
 
-    import {startGame} from './test.js';
+    import {startGame} from './main.js';
  
     
 
 
     
-    startGame();
+    startGame();//game start
     
     
 

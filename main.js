@@ -1,34 +1,37 @@
-export {startGame, vector, dieanim, component}
+export {startGame,  dieanim, component,player, updateGameArea}
 import {collide, testcollide} from './collide.js';
 import {playermove} from './player.js';
 import {ennemimove} from './ennemi.js';
+import {playerShoot, bulletvisible} from './weapon.js';
+import {component, myGameArea, camera,  changelevel} from './object.js';
 // import {playerShoot} from './weapon.js';
     var player; //Variable joueur
-    var release = true
     var platforme=[];
+    var piegepik = []
+    var ennemi = [] //Variable ennemi
+    var endlevel
+    var level = []
+    var ammo = []
     var timerfall = 1;
     var jump = false;
     var walljump = false
     var nbjump = 0;
     var walljumptimer = 0
-    var piegepik = []
     var endlevel
-    var level = []
     var numerolevel = 0
     var gameanim = true
     var tmort = 100
-    var ennemi = [] //Variable ennemi
     var mortaudio = true
     var affichagex
     var affichagey
-    var ammo = []
     var ammoTimer = 0
     var bullet = false
     var creation = 0
     var bull = 0
-    
-    
-    
+    var release = true
+
+
+
 
 function startGame() {// Fonction au lancement du jeu
     
@@ -39,32 +42,27 @@ function startGame() {// Fonction au lancement du jeu
 }
 
 
-
-
  
 function updateGameArea(){//fonction main, lue a chaque chaque frame
+    
     myGameArea.clear()
     level[numerolevel].update();
-    camera()
-    playerShoot(myGameArea)
-
+    
+    var playerShootTab = playerShoot(myGameArea, ammo, ammoTimer, player,bulletvisible)
+    playerShootTab[0] = ammo
+    playerShootTab[1] = ammoTimer
  
-
-    for (var i = 0; i < ennemi.length; i++){
-        ennemi[i].time++
-    }
-
-
-    ennemi = ennemimove(ennemi)
-     
     
-    
-    
-
+    var cameratab = camera(player, platforme, piegepik, ennemi, endlevel  , level, numerolevel)
+    cameratab[0] = player
+    cameratab[1] = platforme
+    cameratab[2] = piegepik
+    cameratab[3] = ennemi
+    cameratab[4] = endlevel
 
     
     
-    var collidetab = collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik, ennemi,ammo)
+    var collidetab = collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik, ennemi , ammo , myGameArea)
     //[timerfall,nbjump,jump,walljumptimer,player,platforme,piegepik, ennemi, ammo]
     timerfall = collidetab[0]
     nbjump = collidetab[1]
@@ -73,7 +71,7 @@ function updateGameArea(){//fonction main, lue a chaque chaque frame
     player = collidetab[4]
     ammo = collidetab[8]
 
-    var playermovetab = playermove(timerfall,jump,walljumptimer, nbjump ,walljump ,player, platforme , myGameArea, release, ammo);
+    var playermovetab = playermove(timerfall,jump,walljumptimer, nbjump ,walljump ,player, platforme , myGameArea, release);
     timerfall = playermovetab[0]
     jump= playermovetab[1]
     walljumptimer = playermovetab[2]
@@ -84,9 +82,14 @@ function updateGameArea(){//fonction main, lue a chaque chaque frame
     release = playermovetab[7]
     
 
+    ennemi = ennemimove(ennemi)
     
-    
-    changelevel(testcollide,player,endlevel)
+    numerolevel = changelevel(testcollide,player,endlevel, numerolevel)
+
+
+    for (var i = 0; i < ennemi.length; i++){
+        ennemi[i].time++
+    }
     
     player.newPos();
     player.update();
@@ -124,160 +127,111 @@ function updateGameArea(){//fonction main, lue a chaque chaque frame
     }
 }
 
-function playerShoot(myGameArea) {
-    console.log(ammoTimer)
-    if (ammoTimer > 0 && ammoTimer < 30){
-        ammoTimer++
-    } else if (ammoTimer = 30) {
-        ammoTimer = 0
-    }
-    bulletvisible(ammo)
-    if ((myGameArea.keys && myGameArea.keys[39]) && (myGameArea.keys && myGameArea.keys[38])){
-        if (ammoTimer == 0) {
-            ammo.push(new component(10, 10, "green", player.x+ 29, player.y));
-            ammoTimer = 1
-            ammo[ammo.length-1].image = "BulletUpRight"
-            ammo[ammo.length-1].speedX = 8
-            ammo[ammo.length-1].speedY = -8
-            console.log("haut droite")
-        }
-    }
-    if ((myGameArea.keys && myGameArea.keys[37]) && (myGameArea.keys && myGameArea.keys[38])){
-        if (ammoTimer == 0) {
-            ammo.push(new component(10, 10, "green", player.x, player.y));
-            ammoTimer = 1
-            ammo[ammo.length-1].image = "BulletUpLeft"
-            ammo[ammo.length-1].speedX = -8
-            ammo[ammo.length-1].speedY = -8
-            console.log("haut gauche")
-        }
-    }
-    if (myGameArea.keys && myGameArea.keys[39]) {
-        if (ammoTimer == 0) {
-        
-            ammo.push(new component(10, 10, "green", player.x+ 20, player.y));
-            ammoTimer = 1
-            ammo[ammo.length-1].image = "BulletRight"
-            ammo[ammo.length-1].speedX = 8
-        }
-        
-    }
-    if (myGameArea.keys && myGameArea.keys[37]) {
-        if (ammoTimer == 0) {
-            ammo.push(new component(10, 10, "green", player.x, player.y));
-            ammoTimer = 1
-            ammo[ammo.length-1].image = "BulletLeft"
-            ammo[ammo.length-1].speedX = -8
-        }
-    }
+function dieanim(){
     
-    
-}
-
-function bulletvisible(ammo) {
-    
-        for (var i = 0; i < ammo.length; i++){
+    var audio = new Audio('sprite\\Audio\\Die.wav');
+    var ctx = myGameArea.canvas.getContext("2d");
+    var img = document.getElementById("PlayerDead");    
+    if (mortaudio == true ) {
+            audio.play();
+            mortaudio = false
             
-        ammo[i].newPos()
-        ammo[i].update()
-        }
+            
+            affichagex = player.x-player.width*0.3
+            affichagey = player.y-player.height/2
+            
+            
+    }
+    ctx.drawImage(img,affichagex ,affichagey , 30*1.3, 30*1.3 )
     
-}
+   
+    
+   
+    
 
-function changelevel(testcollide,player,endlevel){
-    if (testcollide(player, endlevel)!= null){
+    player.image = null
+    player.update();
+    player.x = 0
+    player.y = 0
+    player.width = 0
+    player.height = 0
+    for(var i=0;i< piegepik.length; i++){
+        piegepik[i].width = 0
+        piegepik[i].height = 0
+    }
+
+    player.accumulationX
+
+    tmort--
+    if(tmort>0 ){
         
-        platforme = []
-        endlevel = 0
-        numerolevel++
+        gameanim = false
+        requestAnimationFrame(dieanim)
+        
+    } else if (tmort == 0){
+        
+        gameanim = true
+        tmort = 100
+
+        player.speedX = 0
+        player.speedY = 0
         level[numerolevel].start()
+        mortaudio = true
+
+        requestAnimationFrame(updateGameArea);
+        
+        
+        
+        
     }
 }
 
 
-
-
-
-function vector(x, y) {
-    this.x = x;
-    this.y = y
-    this.norme = Math.sqrt(x*x+y*y)
-}
-
-function component(width, height, color, x, y, image) { // création d'un objet
-  this.width = width;//largeur de l'objet
-  this.height = height;//hauteur de l'objet
-  this.x = x;// Coordonée en x de l'objet
-  this.y = y;//Coordonée en y de l'objet
-  this.speedX = 0;//Vitesse de l'objet en X
-  this.speedY = 0;//Vitesse de l'objet en Y
-  this.speed=Math.abs(this.speedX)+ Math.abs(this.speedY)
-  this.accumulationX = 0;
-  this.accumulationY = 0;
-  this.color = color;
-  this.image = image
-  this.time = 0;
-  this.affichagex=0;
-  this.affichagey=0;
-  this.update = function(){// affichage de l'objet
+function pause( ){
     
-    var ctx2 = myGameArea.context;
-    ctx2.fillStyle = this.color;// couleur de l'objet
-    ctx2.fillRect(this.x, this.y, this.width, this.height);// affichage de l'objet 
-
-    if(this.image != null){
-        var ctx = myGameArea.canvas.getContext("2d");
-        var img = document.getElementById(this.image);
-        if (this.image == "BulletRight" || this.image == "BulletLeft" || this.image == "BulletUpRight" || this.image == "BulletUpLeft"){
-            
-            ctx.drawImage(img, this.x-this.width*0.3, this.y-this.height/2, this.width*2, this.height*2)
-
-        } else if (this.image == "Ennemi1" || this.image == "Ennemi2" || this.image == "Ennemi3" ){
-
-            ctx.drawImage(img, this.x-this.width*0.3, this.y-this.height/1.5, this.width*1.5, this.height*1.5)
-
-        } else {
-            
-            ctx.drawImage(img, this.x-this.width*0.3, this.y-this.height/2, this.width*1.5, this.height*1.5)
+    
+    
+    
+    if(myGameArea.keys && myGameArea.keys[13] && gameanim == false){
+        var audio = new Audio('sprite\\Audio\\CloseMenu.ogg');
+        
+        audio.play();
+        gameanim = true
+        if (requestAnimationFrame(updateGameArea) == false){
+            requestAnimationFrame(updateGameArea);
         }
         
-    }
-
-  }
-  this.newPos = function() { //Calcul  de la nouvelle position de l'objet a chaque frame en fonction de la vitesse
     
-    this.x += this.speedX;// 
-    this.y += this.speedY;
-    this.speed = Math.abs(player.speedX)+ Math.abs(player.speedY)
-    
-  }
-}
-
-
-
-
-var myGameArea = {
-    canvas : document.createElement("canvas"),
-    start : function() {
-         this.canvas.width = 1000;// Taille du canneva dynamique
-         this.canvas.height = (1000)/(16/9);
-        this.context = this.canvas.getContext("2d");
-        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-        var globalID = requestAnimationFrame(updateGameArea);
-
-        window.addEventListener('keydown', function (e) {// Gestion du clavier
-        myGameArea.keys = (myGameArea.keys || []);
-        myGameArea.keys[e.keyCode] = true;
-        })
-        window.addEventListener('keyup', function (e) {
-        myGameArea.keys[e.keyCode] = false;
-        })
- 
-    },
         
-    clear : function() {
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);// Fonction pour nettoyer le canneva a chaque frame
-  }
+            
+        
+    } else if (myGameArea.keys && myGameArea.keys[8] && gameanim == false) {
+        var audio = new Audio('sprite\\Audio\\Jump.wav');
+        audio.play();
+        gameanim = true
+        
+        
+        requestAnimationFrame(updateGameArea);
+        
+        player.speedX = 0
+        player.speedY = 0
+        level[numerolevel].start()
+        
+
+    } else {
+
+        var ctx = myGameArea.canvas.getContext("2d");
+        var img = document.getElementById("PauseMenu");
+        ctx.drawImage(img, 0, 0, 1000, 1000/(16/9));
+
+        gameanim = false
+        
+            requestAnimationFrame(pause)
+        
+    }
+        
+    
+    return [myGameArea, updateGameArea, gameanim ]
 }
 
 level[0] = {
@@ -491,178 +445,3 @@ level[1] = {
         ctx.drawImage(img, this.x, this.y, this.width, this.height);
     }
 }
-
-function camera(){
-   
-    if (player.x<=300 || player.x>=600 ){
-
-        if (player.x<300){
-            
-            player.x = 300
-        }
-        if (player.x>600){
-            
-            player.x = 600
-        }
-        
-            
-        
-
-
-        for (var i = 0; i < platforme.length; i++){ //
-            platforme[i].x -= player.speedX   
-            
-        }
-        for (var i = 0; i < piegepik.length; i++){ //
-            piegepik[i].x -= player.speedX   
-            
-        }
-        for (var i = 0; i < ennemi.length; i++){ //
-            ennemi[i].x -= player.speedX   
-            
-        }
-        endlevel.x -= player.speedX
-        level[numerolevel].x -= player.speedX
-        
-    }
-
-
-    if (player.y<=100 || player.y>=450 ){
-        if (player.y<100){
-            player.y = 100
-        }
-        if (player.y>450){
-            player.y = 450
-        }
-        
-        player.y  -= player.speedY
-        for (var i = 0; i < platforme.length; i++){ //
-            platforme[i].y -= player.speedY   
-            
-        }
-        for (var i = 0; i < piegepik.length; i++){ //
-            piegepik[i].y -= player.speedY  
-        }
-        for (var i = 0; i < ennemi.length; i++){ //
-            ennemi[i].y -= player.speedY  
-            
-        }
-        endlevel.y -= player.speedY
-        level[numerolevel].y -= player.speedY
-    }
-    
-}
-
-
-    
-    
-
-    
-function dieanim(){
-    
-    var audio = new Audio('sprite\\Audio\\Die.wav');
-    var ctx = myGameArea.canvas.getContext("2d");
-    var img = document.getElementById("PlayerDead");    
-    if (mortaudio == true ) {
-            audio.play();
-            mortaudio = false
-            
-            
-            affichagex = player.x-player.width*0.3
-            affichagey = player.y-player.height/2
-            
-            
-    }
-    ctx.drawImage(img,affichagex ,affichagey , 30*1.3, 30*1.3 )
-    
-   
-    
-   
-    
-
-    player.image = null
-    player.update();
-    player.x = 0
-    player.y = 0
-    player.width = 0
-    player.height = 0
-
-    tmort--
-    if(tmort>0 ){
-        
-        gameanim = false
-        requestAnimationFrame(dieanim)
-        
-    } else if (tmort == 0){
-        
-        gameanim = true
-        tmort = 100
-
-        player.speedX = 0
-        player.speedY = 0
-        level[numerolevel].start()
-        mortaudio = true
-
-        requestAnimationFrame(updateGameArea);
-        
-        
-        
-        
-    }
-}
-
-function pause(){
-    
-    
-    
-    
-    if(myGameArea.keys && myGameArea.keys[13] && gameanim == false){
-        var audio = new Audio('sprite\\Audio\\CloseMenu.ogg');
-        
-        audio.play();
-        gameanim = true
-        if (requestAnimationFrame(updateGameArea) == false){
-            requestAnimationFrame(updateGameArea);
-        }
-        
-    
-        
-            
-        
-    } else if (myGameArea.keys && myGameArea.keys[8] && gameanim == false) {
-        var audio = new Audio('sprite\\Audio\\Jump.wav');
-        audio.play();
-        gameanim = true
-        tmort = 100
-        
-        requestAnimationFrame(updateGameArea);
-        
-        player.speedX = 0
-        player.speedY = 0
-        level[numerolevel].start()
-        
-
-    } else {
-
-        var ctx = myGameArea.canvas.getContext("2d");
-        var img = document.getElementById("PauseMenu");
-        ctx.drawImage(img, 0, 0, 1000, 1000/(16/9));
-
-        gameanim = false
-        
-            requestAnimationFrame(pause)
-        
-    }
-        
-    
-    
-}
-
-
-let i = 0;
-const start = Date.now();
-const stop = start + 5000;
-
-
-
-

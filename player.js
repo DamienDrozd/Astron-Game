@@ -1,4 +1,5 @@
-import {vector} from './test.js';
+import {} from './main.js';
+import {testcollide} from './collide.js';
 export{playermove}
 
 var stopjump = false
@@ -25,7 +26,7 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
         }
         if (nbjump == 1 && jump == true && walljump == false){// deuxième saut
             audio.play();
-            player.accumulationY = -150; 
+            player.accumulationY = -160; 
             timerfall = 1;
             jump = false;
             nbjump++;
@@ -47,18 +48,20 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
    
     // -------------------------------------------Gestion du walljump------------------------------------------------
     for (var i = 0; i < platforme.length; i++){ // 
-        
-        if (player.x + player.width  > platforme[i].x -1 && player.x  < platforme[i].x + platforme[i].width +1  &&  player.y + player.height > platforme[i].y  && player.y < platforme[i].y + platforme[i].height  ) {
-
+        var collidepos = testcollide(player,platforme[i])
+        if (collidepos!=null){
             
+        
             if (player.x + player.width -3 < platforme[i].x  ){
+            
+            
                 walljump = true
                 
                 if (myGameArea.keys && myGameArea.keys[32] && jump == true) {
                 
-                
+                    console.log("droite")
                     audio.play();
-                    player.accumulationY = -100  ; 
+                    player.accumulationY = -110  ; 
                     player.speedX = -20;
                     timerfall = 1;
                     walljump = false
@@ -69,16 +72,14 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
                 
                 } 
                 
-            
-                
-            } else if (player.x + 3> platforme[i].x + platforme[i].width ){
+            }else if (player.x + 3> platforme[i].x + platforme[i].width ){
                 walljump = true
                 
                 if (myGameArea.keys && myGameArea.keys[32] && jump == true) {
                 
-                
+                    console.log("gauche")
                     audio.play();
-                    player.accumulationY = -100  ; 
+                    player.accumulationY = -110  ; 
                     player.speedX = 20;
                     timerfall = 1;
                     walljump = false
@@ -88,13 +89,16 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
                 
                 
                 }
+            
                 
                 
             } else {
                 walljump = false
                 player.speedX=0
             }
+
         }
+        
 
     }
 
@@ -115,8 +119,7 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
     
 
     
-    var u = new vector(player.speedX, player.speedY);
-    var v = new vector(0, 1);
+
     
     
     
@@ -124,10 +127,7 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
     var v0 = - player.speedY //+ player.speedX;
 
 
-            //player.x =  v0*Math.cos(alphawann)// Calcul de la vitesse en x en fonction des équations horaires
-            //player.Y = -0.5 * 8     * Math.pow(timerfall/16.7,2) + v0/16.7 * Math.sin(alphawann) * timerfall/16.7 // Calcul de la vitesse en y en fonction des équations horaires
-
-            
+        
             player.speedY = 6  *timerfall/16.7 + v0/16.5 * Math.sin(180) // Calcul de la vitesse en y en fonction des équations horaires
             
 
@@ -158,7 +158,7 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
         player.accumulationX = 0; 
     }
     
-    if (walljumptimer == 0 || walljumptimer>10){
+    if (walljumptimer == 0 || walljumptimer>15){
         player.speedX+=player.accumulationX
     } else{
         player.accumulationX = 0
@@ -192,6 +192,27 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
         }
         
     } 
+
+    for (var i = 0; i < platforme.length; i++){ // 
+        var collidepos = testcollide(player,platforme[i])
+        if (collidepos!=null){
+            
+            if (collidepos == "gauche"){
+                player.x = platforme[i].x - player.width;
+                if (player.speedX>0){
+                    player.speedX=0
+                    // player.accumulationX = 0
+                }
+            }
+            if (collidepos == "droite"){
+                player.x = platforme[i].x + platforme[i].width   ;
+                if (player.speedX<0){
+                    player.speedX=0
+                    // player.accumulationX=0
+                }
+            }
+        }
+    }
     
    
     

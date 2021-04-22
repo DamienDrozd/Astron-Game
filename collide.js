@@ -1,10 +1,11 @@
-import{dieanim} from './test.js'
+import{dieanim} from './main.js'
 export{collide, testcollide}
 
 
- 
+
 function testcollide(obj1 = new component((width, height, color, x, y)), obj2 =new component(width, height, color, x, y) ) {// collision du joueur
         //detection si contact avec une surface
+        
         if (obj1.x + obj1.width +1 > obj2.x  &&  obj1.y + obj1.height > obj2.y  && obj1.y < obj2.y + obj2.height && obj1.x  < obj2.x + obj2.width +1) {
             //colision avec platforme en dessous
             if (obj1.y+obj1.height > obj2.y && obj1.x + obj1.width > obj2.x+5 && obj1.x   < obj2.x + obj2.width- 5  && obj1.y < obj2.y ){
@@ -29,7 +30,7 @@ function testcollide(obj1 = new component((width, height, color, x, y)), obj2 =n
     }
     var chute = false
 
-function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik,ennemi, ammo ){
+function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik,ennemi, ammo, myGameArea ){
     for (var i = 0; i < platforme.length; i++){
         
         for (var y = 0; y < ennemi.length; y++) {
@@ -51,9 +52,9 @@ function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik
         }
 
 
-
+        
         var collidepos = testcollide(player,platforme[i])
-
+        
 
         if (collidepos == "bas"){
                 
@@ -75,15 +76,17 @@ function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik
             player.speedY = 0
         }
         if (collidepos == "gauche"){
-            player.x = platforme[i].x - player.width+1;
+            player.x = platforme[i].x - player.width;
             if (player.speedX>0){
                 player.speedX=0
+                // player.accumulationX = 0
             }
         }
         if (collidepos == "droite"){
-            player.x = platforme[i].x + platforme[i].width-1  ;
+            player.x = platforme[i].x + platforme[i].width   ;
             if (player.speedX<0){
                 player.speedX=0
+                // player.accumulationX=0
             }
         }
     }
@@ -140,6 +143,7 @@ function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik
             for (var y = 0; y < ammo.length; y++) {
                 var ammoWall = testcollide(ammo[y], platforme[i])
 
+
                 if (ammoWall != null){
                     ammo.splice(y,1)
                 }
@@ -148,7 +152,17 @@ function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik
             } 
         }
 
+        for (var y = 0; y < ammo.length; y++) {//collision des balles avec les bords de l'écran
             
+            
+            if (ammo.x>myGameArea.canvas.width && ammo.x > 0 || ammo.x<myGameArea.canvas.width && ammo.x < 0 || ammo.y > myGameArea.canvas.height && ammo.y > 0 || ammo.y < myGameArea.canvas.height && ammo.y < 0 ){
+            
+                ammo.splice(y,1)
+                console.log("test")
+            }
+    
+    
+        } 
 
     if (chute == false && timerfall == 0){
          timerfall ++
