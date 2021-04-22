@@ -12,5 +12,5 @@ function playerShoot(myGameArea, player) {
         }
     }
 
-
-}
+    if(myGameArea.keys && myGameArea.keys[])
+}   

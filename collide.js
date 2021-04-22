@@ -128,10 +128,10 @@ function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik
             
                 if (ammoHit != null){
                     ennemi.splice(i,1)
-                    console.log("kill")
+                    
                     ammo[y].speedX = 0
                     ammo.splice(y,1)
-                    console.log(ammo)
+                    
                     break
                 } 
             }
@@ -145,7 +145,8 @@ function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik
                 }
         
         
-     
+            } 
+        }
 
             
 

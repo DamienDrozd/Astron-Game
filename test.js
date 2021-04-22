@@ -125,24 +125,59 @@ function updateGameArea(){//fonction main, lue a chaque chaque frame
 }
 
 function playerShoot(myGameArea) {
-   
+    console.log(ammoTimer)
+    if (ammoTimer > 0 && ammoTimer < 30){
+        ammoTimer++
+    } else if (ammoTimer = 30) {
+        ammoTimer = 0
+    }
     bulletvisible(ammo)
-    if (myGameArea.keys && myGameArea.keys[69]) {
+    if ((myGameArea.keys && myGameArea.keys[39]) && (myGameArea.keys && myGameArea.keys[38])){
+        if (ammoTimer == 0) {
+            ammo.push(new component(10, 10, "green", player.x+ 29, player.y));
+            ammoTimer = 1
+            ammo[ammo.length-1].image = "BulletUpRight"
+            ammo[ammo.length-1].speedX = 8
+            ammo[ammo.length-1].speedY = -8
+            console.log("haut droite")
+        }
+    }
+    if ((myGameArea.keys && myGameArea.keys[37]) && (myGameArea.keys && myGameArea.keys[38])){
+        if (ammoTimer == 0) {
+            ammo.push(new component(10, 10, "green", player.x, player.y));
+            ammoTimer = 1
+            ammo[ammo.length-1].image = "BulletUpLeft"
+            ammo[ammo.length-1].speedX = -8
+            ammo[ammo.length-1].speedY = -8
+            console.log("haut gauche")
+        }
+    }
+    if (myGameArea.keys && myGameArea.keys[39]) {
+        if (ammoTimer == 0) {
         
-        ammo.push(new component(10, 10, "green", player.x, player.y));
-
-
-        ammo[ammo.length-1].speedX = 8
-        
+            ammo.push(new component(10, 10, "green", player.x+ 20, player.y));
+            ammoTimer = 1
+            ammo[ammo.length-1].image = "BulletRight"
+            ammo[ammo.length-1].speedX = 8
+        }
         
     }
+    if (myGameArea.keys && myGameArea.keys[37]) {
+        if (ammoTimer == 0) {
+            ammo.push(new component(10, 10, "green", player.x, player.y));
+            ammoTimer = 1
+            ammo[ammo.length-1].image = "BulletLeft"
+            ammo[ammo.length-1].speedX = -8
+        }
+    }
+    
     
 }
 
 function bulletvisible(ammo) {
     
         for (var i = 0; i < ammo.length; i++){
-            console.log(ammo)
+            
         ammo[i].newPos()
         ammo[i].update()
         }
@@ -193,15 +228,28 @@ function component(width, height, color, x, y, image) { // création d'un objet
     if(this.image != null){
         var ctx = myGameArea.canvas.getContext("2d");
         var img = document.getElementById(this.image);
-        ctx.drawImage(img, this.x-this.width*0.3, this.y-this.height/2, this.width*1.5, this.height*1.5)
+        if (this.image == "BulletRight" || this.image == "BulletLeft" || this.image == "BulletUpRight" || this.image == "BulletUpLeft"){
+            
+            ctx.drawImage(img, this.x-this.width*0.3, this.y-this.height/2, this.width*2, this.height*2)
+
+        } else if (this.image == "Ennemi1" || this.image == "Ennemi2" || this.image == "Ennemi3" ){
+
+            ctx.drawImage(img, this.x-this.width*0.3, this.y-this.height/1.5, this.width*1.5, this.height*1.5)
+
+        } else {
+            
+            ctx.drawImage(img, this.x-this.width*0.3, this.y-this.height/2, this.width*1.5, this.height*1.5)
+        }
         
     }
 
   }
   this.newPos = function() { //Calcul  de la nouvelle position de l'objet a chaque frame en fonction de la vitesse
+    
     this.x += this.speedX;// 
     this.y += this.speedY;
     this.speed = Math.abs(player.speedX)+ Math.abs(player.speedY)
+    
   }
 }
 
@@ -402,6 +450,7 @@ level[0] = {
         piegepik[17]= new component(89,25,"white",721,1780);
         /*---------- ennemie-------*/
         ennemi[0] = new component(30, 30, "red", 900, 440);
+        ennemi[0].image = "Ennemi1"
 
         /*-----------finlevel------*/
         endlevel = new component(100, 100,"white",0,1900);
@@ -569,7 +618,7 @@ function pause(){
     
     if(myGameArea.keys && myGameArea.keys[13] && gameanim == false){
         var audio = new Audio('sprite\\Audio\\CloseMenu.ogg');
-        console.log("test")
+        
         audio.play();
         gameanim = true
         if (requestAnimationFrame(updateGameArea) == false){
