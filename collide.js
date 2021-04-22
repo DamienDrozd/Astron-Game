@@ -29,7 +29,7 @@ function testcollide(obj1 = new component((width, height, color, x, y)), obj2 =n
     }
     var chute = false
 
-function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik,ennemi ){
+function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik,ennemi, ammo ){
     for (var i = 0; i < platforme.length; i++){
         
         for (var y = 0; y < ennemi.length; y++) {
@@ -121,6 +121,28 @@ function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik
 
 
         }
+        for (var i = 0; i < ennemi.length; i++) {
+            for (var y = 0; y < ammo.length; y++) {
+                
+                var ammoHit = testcollide(ammo[y], ennemi[i])
+            
+                if (ammoHit != null){
+                    ennemi.splice(i,1)
+                    console.log("kill")
+                    ammo[y].speedX = 0
+                    ammo.splice(y,1)
+                    console.log(ammo)
+                    break
+                } 
+            }
+        }
+        for (var i = 0; i < platforme.length; i++) {
+            for (var y = 0; y < ammo.length; y++) {
+                var ammoWall = testcollide(ammo[y], platforme[i])
+
+                if (ammoWall != null){
+                    ammo.splice(y,1)
+                }
         
         
      
@@ -133,5 +155,5 @@ function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik
     }
         chute = false
 
-    return [timerfall,nbjump,jump,walljumptimer,player,platforme,piegepik, ennemi]
+    return [timerfall,nbjump,jump,walljumptimer,player,platforme,piegepik, ennemi, ammo]
 } 
