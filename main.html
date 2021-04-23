@@ -1,17 +1,36 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>indent.js - pure code indenter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    
+    <style>
+        body {
+            margin: 0;
+            font-size: 14px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+    </style>
+</head>
+
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<style>
-
-canvas {
-    border: 1px solid #d3d3d3;
-    background-color: #000000;
-    height: 80%;
-    width: 80%;
-}
-</style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        
+        canvas {
+            border: 1px solid #d3d3d3;
+            background-color: #000000;
+            height: 80%;
+            width: 80%;
+        }
+    </style>
 </head>
+
 <!--------------------------------------------Chargement des modules--------------------------------------->
 <script type="module" src="player.js"></script>
 <script type="module" src="weapon.js"></script>
@@ -23,7 +42,6 @@ canvas {
     <!------------------------------------ chargement des images ------------------------------------------------>
     <img id="level1" width="0" height="0" src="sprite\Map\MapFinale.png">
     <img id="level2" width="0" height="0" src="sprite\Map\MapFinale2.png">
-    <img id="PlayerFall" width="0" height="0" src="sprite\Character\PlayerFall.png">
     <img id="PlayerJumpRight" width="0" height="0" src="sprite\Character\PlayerJump.png">
     <img id="PlayerRunningRight" width="0" height="0" src="sprite\Character\PlayerRunning.png">
     <img id="PlayerJumpLeft" width="0" height="0" src="sprite\Character\PlayerJumpReverted.png">
@@ -31,7 +49,7 @@ canvas {
     <img id="PlayerStandingFace" width="0" height="0" src="sprite\Character\PlayerStandingFace.png">
     <img id="PlayerDead" width="0" height="0" src="sprite\Character\PlayerDead.png">
     <img id="PauseMenu" width="0" height="0" src="sprite\UI\PauseMenu.png">
-
+    
     <img id="Bullet" width="0" height="0" src="sprite\Bullet\BalleDroite.png">
     <img id="BulletRight" width="0" height="0" src="sprite\Bullet\BalleDroite.png">
     <img id="BulletLeft" width="0" height="0" src="sprite\Bullet\BalleGauche.png">
@@ -44,30 +62,24 @@ canvas {
     <img id="Ennemi1" width="0" height="0" src="sprite\Ennemies\Enemy1Idle.png">
     <img id="Ennemi2" width="0" height="0" src="sprite\Ennemies\Enemy2Idle.png">
     <img id="Ennemi3" width="0" height="0" src="sprite\Ennemies\Enemy3Idle.png">
+    <img id="EnnemiFlying" width="0" height="0" src="sprite\Ennemies\Flying2-1.png">
     <img id="CoinLarge" width="0" height="0" src="sprite\Coin\CoinLarge.png">
     <img id="CoinSmall" width="0" height="0" src="sprite\Coin\CoinSmall.png">
     
-<script type="module" >
+    <script type="module" >
+        
 
-
-    import {startGame} from './main.js';
- 
-    
-
-
-    
-    startGame();//game start
-    
-    
-
-
-
- 
-
-
-
-
-</script>
+        
+        import {startGame} from './main.js';
+        
+        
+        
+        
+        
+        startGame();//game start
+        
+        
+    </script>
 </body>
 
 
