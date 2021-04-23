@@ -159,7 +159,7 @@ function camera(player, platforme, piegepik, ennemi, endlevel, level, numeroleve
         level[numerolevel].y += 500
     }
 
-    console.log(player.y)
+
     return [player, platforme, piegepik, ennemi, endlevel, coins]
 }
 
@@ -177,6 +177,8 @@ function changelevel(testcollide, player, endlevel, platforme, piegepik, ennemi,
 function scoreboard(timer, score) {
     timer++
     var ctx = myGameArea.canvas.getContext('2d');
+    var img = document.getElementById("ScoreBoard");
+    ctx.drawImage(img, 60, 25, 200, 85);
     ctx.font = "15pt Arial";
     ctx.strokeStyle = "rgb(0,0,0)";
     ctx.fillStyle = "rgb(0,0,0)";

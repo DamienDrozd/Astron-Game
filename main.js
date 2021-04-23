@@ -44,8 +44,6 @@ function startGame() { // Fonction au lancement du jeu
 
 }
 
-
-
 function updateGameArea() { //fonction main, lue a chaque chaque frameexport {component, myGameArea, camera,  changelevel, scoreboard }
 
     myGameArea.clear()
@@ -166,7 +164,6 @@ function dieanim() { //fonction qui s'enclenche quand le personnage meurt
         requestAnimationFrame(updateGameArea);
     }
 }
-
 
 function pause() {
     if (myGameArea.keys && myGameArea.keys[13] && gameanim == false) {
@@ -379,7 +376,7 @@ level[0] = {
 
 
         /*-----------Piece---------*/
-        coins[0] = new component(15, 15, "yellow", 400, 400)
+        coins[0] = new component(30, 30, "yellow", 400, 400)
 
 
 

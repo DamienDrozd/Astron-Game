@@ -1,0 +1,38 @@
+sources:
+
+JS Canneva:
+https://developer.mozilla.org/fr/docs/Web/HTML/Element/canvas
+https://www.javatpoint.com/how-to-make-a-javascript-game
+https://www.w3schools.com/graphics/game_intro.asp
+
+
+Js request animation frame:
+https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+
+Js module, import,export:
+https://www.pierre-giraud.com/javascript-apprendre-coder-cours/module-import-export/
+https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide/Modules
+https://javascript.info/import-export
+
+js audio:
+https://stackoverflow.com/questions/3273552/html5-audio-looping
+
+js image:
+https://www.w3schools.com/tags/canvas_drawimage.asp
+
+Clavier js:
+https://www.w3schools.com/graphics/game_controllers.asp
+http://javascriptkeycode.com/
+
+Math js:
+https://mathjs.org/
+
+js splice:
+https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
+
+js objet:
+https://www.w3schools.com/js/js_objects.asp
+https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+Game maker:
+
