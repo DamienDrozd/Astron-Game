@@ -35,4 +35,9 @@ https://www.w3schools.com/js/js_objects.asp
 https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Object
 
 Game maker:
-
+https://www.mapeditor.org
+https://www.kenney.nl/assets/bit-platformer-pack
+https://freesound.org
+http://soundimage.org
+https://99sounds.org
+https://opengameart.org
