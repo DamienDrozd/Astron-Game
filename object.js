@@ -1,7 +1,6 @@
 
 export {component, myGameArea, camera,  changelevel, scoreboard }
 import{updateGameArea} from './main.js';
-import{Math.round}
 
 
 
@@ -166,7 +165,7 @@ function changelevel(testcollide,player,endlevel, numerolevel){
 function scoreboard(timer, score){
     
     timer++
-    console.log(round(timer/60)) 
+    console.log(Math.round(timer/60)) 
 
 
     var ctx = canvas.getContext('2d'); 
