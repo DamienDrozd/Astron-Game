@@ -97,29 +97,68 @@ function camera(player, platforme, piegepik, ennemi, endlevel, level, numeroleve
         level[numerolevel].x -= player.speedX
     }
 
-    if (player.y <= 100 || player.y >= 450) {
-        if (player.y < 100) {
-            player.y = 100
-        }
-        if (player.y > 450) {
-            player.y = 450
-        }
-        player.y -= player.speedY
+    // if (player.y <= 100 || player.y >= 450) {
+    //     if (player.y < 100) {
+    //         player.y = 100
+    //     }
+    //     if (player.y > 450) {
+    //         player.y = 450
+    //     }
+    //     player.y -= player.speedY
+    //     for (var i = 0; i < platforme.length; i++) { //
+    //         platforme[i].y -= player.speedY
+    //     }
+    //     for (var i = 0; i < piegepik.length; i++) { //
+    //         piegepik[i].y -= player.speedY
+    //     }
+    //     for (var i = 0; i < ennemi.length; i++) { //
+    //         ennemi[i].y -= player.speedY
+    //     }
+    //     for (var i = 0; i < coins.length; i++) {
+    //         coins[i].y -= player.speedY
+    //     }
+    //     endlevel.y -= player.speedY
+    //     level[numerolevel].y -= player.speedY
+    // }
+
+    if (player.y>500){
+        player.y -= 500
+        
         for (var i = 0; i < platforme.length; i++) { //
-            platforme[i].y -= player.speedY
+            platforme[i].y -= 500
         }
         for (var i = 0; i < piegepik.length; i++) { //
-            piegepik[i].y -= player.speedY
+            piegepik[i].y -= 500
         }
         for (var i = 0; i < ennemi.length; i++) { //
-            ennemi[i].y -= player.speedY
+            ennemi[i].y -= 500
         }
         for (var i = 0; i < coins.length; i++) {
-            coins[i].y -= player.speedY
+            coins[i].y -= 500
         }
-        endlevel.y -= player.speedY
-        level[numerolevel].y -= player.speedY
+        endlevel.y -= 500
+        level[numerolevel].y -= 500
     }
+
+    if (player.y<0){
+        player.y += 500
+        
+        for (var i = 0; i < platforme.length; i++) { //
+            platforme[i].y += 500
+        }
+        for (var i = 0; i < piegepik.length; i++) { //
+            piegepik[i].y += 500
+        }
+        for (var i = 0; i < ennemi.length; i++) { //
+            ennemi[i].y += 500
+        }
+        for (var i = 0; i < coins.length; i++) {
+            coins[i].y += 500
+        }
+        endlevel.y += 500
+        level[numerolevel].y += 500
+    }
+
     console.log(player.y)
     return [player, platforme, piegepik, ennemi, endlevel, coins]
 }
