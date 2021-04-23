@@ -117,13 +117,6 @@ function playermove(timerfall,jump,walljumptimer, nbjump,walljump ,player, platf
 
     
     
-
-    
-
-    
-    
-    
-    
     var v0 = - player.speedY //+ player.speedX;
 
 

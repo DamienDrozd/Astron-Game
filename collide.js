@@ -2,7 +2,6 @@ import{dieanim} from './main.js'
 export{collide, testcollide}
 
 
-
 function testcollide(obj1 = new component((width, height, color, x, y)), obj2 =new component(width, height, color, x, y) ) {// collision du joueur
         //detection si contact avec une surface
         
@@ -30,7 +29,18 @@ function testcollide(obj1 = new component((width, height, color, x, y)), obj2 =n
     }
     var chute = false
 
-function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik,ennemi, ammo, myGameArea ){
+function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik,ennemi, ammo, myGameArea, coins, score){
+    for (var i = 0; i < coins.length; i++){
+            var cScore = testcollide(player,coins[i])
+            if (cScore != null) {
+                coins.splice(i,1)
+                score += 10
+                console.log(score)
+
+            }
+
+
+    }
     for (var i = 0; i < platforme.length; i++){
         
         for (var y = 0; y < ennemi.length; y++) {
@@ -134,7 +144,8 @@ function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik
                     
                     ammo[y].speedX = 0
                     ammo.splice(y,1)
-                    
+                    score += 3
+                    console.log(score)
                     break
                 } 
             }
@@ -152,13 +163,13 @@ function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik
             } 
         }
 
-        for (var y = 0; y < ammo.length; y++) {//collision des balles avec les bords de l'écran
+        for (var i = 0; i < ammo.length; i++) {//collision des balles avec les bords de l'écran
             
             
-            if (ammo.x>myGameArea.canvas.width && ammo.x > 0 || ammo.x<myGameArea.canvas.width && ammo.x < 0 || ammo.y > myGameArea.canvas.height && ammo.y > 0 || ammo.y < myGameArea.canvas.height && ammo.y < 0 ){
+            if (ammo[i].x>myGameArea.canvas.width && ammo[i].x > 0 || ammo[i].x<myGameArea.canvas.width && ammo[i].x < 0 || ammo[i].y > myGameArea.canvas.height && ammo[i].y > 0 || ammo[i].y < myGameArea.canvas.height && ammo[i].y < 0 ){
             
-                ammo.splice(y,1)
-                console.log("test")
+                ammo.splice(i,1)
+                
             }
     
     
@@ -170,5 +181,5 @@ function collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik
     }
         chute = false
 
-    return [timerfall,nbjump,jump,walljumptimer,player,platforme,piegepik, ennemi, ammo]
+    return [timerfall,nbjump,jump,walljumptimer,player,platforme,piegepik, ennemi, ammo, coins,score]
 } 

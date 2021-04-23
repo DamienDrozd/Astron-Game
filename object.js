@@ -1,7 +1,7 @@
 
-export {component, myGameArea, camera,  changelevel }
+export {component, myGameArea, camera,  changelevel, scoreboard }
 import{updateGameArea} from './main.js';
-
+import{Math.round}
 
 
 
@@ -37,6 +37,10 @@ function component(width, height, color, x, y, image) { // création d'un objet
 
             ctx.drawImage(img, this.x-this.width*0.3, this.y-this.height/1.5, this.width*1.5, this.height*1.5)
 
+        }else if (this.image == "CoinSmall" || this.image == "CoinLarge" ){
+
+            ctx.drawImage(img, this.x-this.width*0.3, this.y-this.height/3, this.width*1.5, this.height*1.5)
+            
         } else {
             
             ctx.drawImage(img, this.x-this.width*0.3, this.y-this.height/2, this.width*1.5, this.height*1.5)
@@ -78,7 +82,7 @@ var myGameArea = {
   }
 }
 
-function camera(player, platforme, piegepik, ennemi, endlevel , level, numerolevel){
+function camera(player, platforme, piegepik, ennemi, endlevel , level, numerolevel, coins){
    
     if (player.x<=300 || player.x>=600 ){
 
@@ -107,6 +111,10 @@ function camera(player, platforme, piegepik, ennemi, endlevel , level, numerolev
             ennemi[i].x -= player.speedX   
             
         }
+
+        for (var i = 0; i < coins.length; i++){
+            coins[i].x -= player.speedX
+        }
         endlevel.x -= player.speedX
         level[numerolevel].x -= player.speedX
         
@@ -133,10 +141,14 @@ function camera(player, platforme, piegepik, ennemi, endlevel , level, numerolev
             ennemi[i].y -= player.speedY  
             
         }
+        for (var i = 0; i < coins.length; i++){ 
+            coins[i].y -= player.speedY
+
+        }
         endlevel.y -= player.speedY
         level[numerolevel].y -= player.speedY
     }
-    return [player, platforme, piegepik, ennemi, endlevel]
+    return [player, platforme, piegepik, ennemi, endlevel, coins]
 }
 
 
@@ -151,3 +163,18 @@ function changelevel(testcollide,player,endlevel, numerolevel){
     return numerolevel
 }
 
+function scoreboard(timer, score){
+    
+    timer++
+    console.log(round(timer/60)) 
+
+
+    var ctx = canvas.getContext('2d'); 
+    ctx.font = "20pt Calibri,Geneva,Arial";
+    ctx.strokeStyle = "rgb(0,0,0)";
+    ctx.fillStyle = "rgb(0,20,180)";
+    ctx.strokeText("TIMER:", 10, 20);
+    ctx.fillText(timer, 10, 60);
+    
+    return timer
+}

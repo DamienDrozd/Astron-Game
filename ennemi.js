@@ -13,6 +13,13 @@ function ennemimove(ennemi){
             ennemi[i].time -= 1000;
         }
         
+        
+        if (ennemi[i].image == "Ennemi2" || ennemi[i].image == "Ennemi3"){
+            
+            ennemi[i].speedY = 0
+           
+        }
+        
     }
         return ennemi
         

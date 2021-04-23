@@ -3,7 +3,7 @@ import {collide, testcollide} from './collide.js';
 import {playermove} from './player.js';
 import {ennemimove} from './ennemi.js';
 import {playerShoot, bulletvisible} from './weapon.js';
-import {component, myGameArea, camera,  changelevel} from './object.js';
+import {component, myGameArea, camera,  changelevel,scoreboard} from './object.js';
 // import {playerShoot} from './weapon.js';
     var player; //Variable joueur
     var platforme=[];
@@ -12,6 +12,7 @@ import {component, myGameArea, camera,  changelevel} from './object.js';
     var endlevel
     var level = []
     var ammo = []
+    var coins = []
     var timerfall = 1;
     var jump = false;
     var walljump = false
@@ -25,11 +26,10 @@ import {component, myGameArea, camera,  changelevel} from './object.js';
     var affichagex
     var affichagey
     var ammoTimer = 0
-    var bullet = false
-    var creation = 0
-    var bull = 0
     var release = true
-
+    var score = 0
+    var timer = 0
+    
 
 
 
@@ -47,32 +47,28 @@ function updateGameArea(){//fonction main, lue a chaque chaque frame
     
     myGameArea.clear()
     level[numerolevel].update();
-    
     var playerShootTab = playerShoot(myGameArea, ammo, ammoTimer, player,bulletvisible)
-    playerShootTab[0] = ammo
-    playerShootTab[1] = ammoTimer
+    ammoTimer = playerShootTab[1] 
  
     
-    var cameratab = camera(player, platforme, piegepik, ennemi, endlevel  , level, numerolevel)
-    cameratab[0] = player
-    cameratab[1] = platforme
-    cameratab[2] = piegepik
-    cameratab[3] = ennemi
-    cameratab[4] = endlevel
+    camera(player, platforme, piegepik, ennemi, endlevel  , level, numerolevel, coins)
+    
 
     
     
-    var collidetab = collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik, ennemi , ammo , myGameArea)
-    //[timerfall,nbjump,jump,walljumptimer,player,platforme,piegepik, ennemi, ammo]
+    var collidetab = collide(timerfall,jump,walljumptimer,player, platforme,nbjump, piegepik, ennemi , ammo , myGameArea, coins, score)
+    //timerfall,nbjump,jump,walljumptimer,player,platforme,piegepik, ennemi, ammo, coins, score
     timerfall = collidetab[0]
     nbjump = collidetab[1]
     jump = collidetab[2]
     walljumptimer = collidetab[3]
     player = collidetab[4]
     ammo = collidetab[8]
+    score = collidetab[10]
 
     var playermovetab = playermove(timerfall,jump,walljumptimer, nbjump ,walljump ,player, platforme , myGameArea, release);
     timerfall = playermovetab[0]
+    //timerfall,nbjump,jump,walljumptimer,player,platforme,piegepik, ennemi, ammo, coins, score
     jump= playermovetab[1]
     walljumptimer = playermovetab[2]
     nbjump= playermovetab[3]
@@ -85,6 +81,8 @@ function updateGameArea(){//fonction main, lue a chaque chaque frame
     ennemi = ennemimove(ennemi)
     
     numerolevel = changelevel(testcollide,player,endlevel, numerolevel)
+
+    timer = scoreboard(timer, score)
 
 
     for (var i = 0; i < ennemi.length; i++){
@@ -109,7 +107,12 @@ function updateGameArea(){//fonction main, lue a chaque chaque frame
         ennemi[i].speedY = 1;
 
     }
-    
+    for (var i = 0; i < coins.length; i++){
+        coins[i].newPos();
+        coins[i].update();
+
+
+    }
      
     endlevel.newPos()
     endlevel.update()
@@ -135,6 +138,7 @@ function dieanim(){
     if (mortaudio == true ) {
             audio.play();
             mortaudio = false
+           
             
             
             affichagex = player.x-player.width*0.3
@@ -236,6 +240,9 @@ function pause( ){
 
 level[0] = {
     start : function(){
+        /* ----------- reset score ----------- */
+        score = 0;
+        /* ----------- création du joueur ----------- */
         player = new component(25, 25, "red", 0, 420,"PlayerStandingFace"); //création du joueur
         /* ----------- etage 1 ----------- */
         player = new component(30,30,"red",0,400); //crÃ©ation du joueur
@@ -405,9 +412,18 @@ level[0] = {
         /*---------- ennemie-------*/
         ennemi[0] = new component(30, 30, "red", 900, 440);
         ennemi[0].image = "Ennemi1"
+        ennemi[1] = new component(30, 30, "red", 900, 300);
+        ennemi[1].image = "Ennemi2"
 
         /*-----------finlevel------*/
         endlevel = new component(100, 100,"white",0,1900);
+
+        /*-----------Piece---------*/
+        coins[0] = new component(15, 15, "yellow", 400, 400)
+        
+        for (var i = 0;i<coins.length;i++){
+            coins[i].image = "CoinLarge"
+        }
         
         this.x = 0
         this.y = 0
