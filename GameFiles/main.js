@@ -77,8 +77,8 @@ function updateGameArea() { //fonction main, lue a chaque chaque frameexport {co
 
     ennemi = ennemimove(ennemi)
 
-    var changeleveltab = changelevel(testcollide, player, endlevel, platforme, piegepik, ennemi, level, ammo, coins, numerolevel)
-    numerolevel = changeleveltab[0]
+    
+
 
     player.newPos(); //raffraichit les positions du joueur
     player.update(); //affiche le joueur
@@ -106,6 +106,12 @@ function updateGameArea() { //fonction main, lue a chaque chaque frameexport {co
         coins[i].newPos();
         coins[i].update();
     }
+
+    var changeleveltab = changelevel(testcollide, player, endlevel, platforme, piegepik, ennemi, level, ammo, coins, numerolevel,gameanim) 
+    numerolevel = changeleveltab[0]
+    gameanim = changeleveltab[6]
+
+
     if (myGameArea.keys && myGameArea.keys[27]) { //menu pause
         if (requestAnimationFrame(pause) == false) {
             requestAnimationFrame(pause)

@@ -164,14 +164,24 @@ function camera(player, platforme, piegepik, ennemi, endlevel, level, numeroleve
 }
 
 
-function changelevel(testcollide, player, endlevel, platforme, piegepik, ennemi, level, ammo, coins, numerolevel) {
+function changelevel(testcollide, player, endlevel, platforme, piegepik, ennemi, level, ammo, coins, numerolevel,gameanim) {
     if (testcollide(player, endlevel) != null) {
         endlevel.width = 0;
         endlevel.height = 0
         numerolevel++
-        level[numerolevel].start()
+        console.log(numerolevel,level.length)
+        if (numerolevel<level.length){
+            level[numerolevel].start()
+        } else{
+            gameanim = false
+            console.log("test")
+            var ctx = myGameArea.canvas.getContext("2d");
+            var img = document.getElementById("EndGame");
+            ctx.drawImage(img, 0, 0, 1000, 550);
+        }
+        
     }
-    return [numerolevel, platforme, piegepik, ennemi, ammo, coins]
+    return [numerolevel, platforme, piegepik, ennemi, ammo, coins, gameanim]
 }
 
 function scoreboard(timer, score) {
