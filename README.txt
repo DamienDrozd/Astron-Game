@@ -1,3 +1,15 @@
+GameContoll:
+[D] = Strafe Right
+[Q] = Strafe LEFT
+[Space] = JUMP
+[ECHAP] = pause game
+[SUPPR] = show Hitboxes
+[RIGHT ARROW] =  Right shoot
+[LEFT ARROW] = Left shoot
+[RIGHT ARROW]+[UP ARROW] = Up Right shoot
+[LEFT ARROW]+[UP ARROW] = Up Left shoot
+
+
 sources:
 
 JS Canneva:
@@ -20,7 +32,7 @@ https://stackoverflow.com/questions/3273552/html5-audio-looping
 js image:
 https://www.w3schools.com/tags/canvas_drawimage.asp
 
-Clavier js:
+Keyboard js:
 https://www.w3schools.com/graphics/game_controllers.asp
 http://javascriptkeycode.com/
 
