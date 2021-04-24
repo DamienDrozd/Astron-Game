@@ -30,6 +30,7 @@ var ammoTimer = 0;
 var release = true;
 var score = 0;
 var timer = 0;
+var NombreMort = 0;
 
 
 
@@ -49,7 +50,7 @@ function updateGameArea() { //fonction main, lue a chaque chaque frameexport {co
     myGameArea.clear()
     level[numerolevel].update();
 
-    timer = scoreboard(timer, score)
+    timer = scoreboard(timer, score, NombreMort)
 
     var playerShootTab = playerShoot(myGameArea, ammo, ammoTimer, player, bulletvisible)
     ammoTimer = playerShootTab[1]
@@ -136,6 +137,7 @@ function dieanim() { //fonction qui s'enclenche quand le personnage meurt
         mortaudio = false
         affichagex = player.x - player.width * 0.3
         affichagey = player.y - player.height / 2
+        NombreMort++
     }
     ctx.drawImage(img, affichagex, affichagey, 30 * 1.3, 30 * 1.3)
 
