@@ -136,8 +136,8 @@ function playermove(timerfall, jump, walljumptimer, nbjump, walljump, player, pl
             player.image = "PlayerJumpLeft"
         }
     }
-    for (var i = 0; i < platforme.length; i++) { //permet d'empécher le joueur de glitcher dans les murs
-        var collidepos = testcollide(player, platforme[i])// On test la collision entre le joueur et les obstacles
+    for (var i = 0; i < platforme.length; i++) { // Allows to prevent the player from glitching into walls
+        var collidepos = testcollide(player, platforme[i]) // Tests the collision between players and obstacles
         if (collidepos != null) {
             if (collidepos == "gauche") {
                 player.x = platforme[i].x - player.width;

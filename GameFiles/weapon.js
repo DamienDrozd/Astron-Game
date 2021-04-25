@@ -7,20 +7,21 @@ function playerShoot(myGameArea, ammo, ammoTimer, player, bulletvisible) {
 
     if (ammoTimer > 0 && ammoTimer < 30) {
         ammoTimer++
-    } else if (ammoTimer = 30) {
+    } else if (ammoTimer = 30) { // If the timer between each shot goes above 30 frames then the player can shoot again
         ammoTimer = 0
     }
 
     ammo = bulletvisible(ammo)
 
+    // If the player uses the right and up key then he shoots diagonaly
     if ((myGameArea.keys && myGameArea.keys[39]) && (myGameArea.keys && myGameArea.keys[38])) {
         if (ammoTimer == 0) {
             ammo.push(new component(10, 10, "green", player.x + 29, player.y + 8));
-            ammoTimer = 1
-            ammo[ammo.length - 1].image = "BulletUpRight"
-            ammo[ammo.length - 1].speedX = 8
+            ammoTimer = 1 // Starts the cooldown between each shot
+            ammo[ammo.length - 1].image = "BulletUpRight" // Displays the sprite
+            ammo[ammo.length - 1].speedX = 8 // Manages the bullet's movement
             ammo[ammo.length - 1].speedY = -8
-            var audio = new Audio('sprite\\Audio\\ShootLaser.wav');
+            var audio = new Audio('sprite\\Audio\\ShootLaser.wav'); // Fire audio
             audio.play();
         }
     }
@@ -62,8 +63,8 @@ function playerShoot(myGameArea, ammo, ammoTimer, player, bulletvisible) {
 
 function bulletvisible(ammo) {
     for (var i = 0; i < ammo.length; i++) {
-        ammo[i].newPos()
-        ammo[i].update()
+        ammo[i].newPos() // Modification of the bullet's position
+        ammo[i].update() // Displays the bullet
     }
     return ammo
 }

@@ -1,18 +1,18 @@
 export {ennemimove}
 
-function ennemimove(ennemi){// fonction qui permet a chaque entité ennemie d'avoir un pattern de deplacement
-    for (var i = 0; i < ennemi.length; i++){ //boucle pour tester chaque ennemie
+function ennemimove(ennemi){ // Function allowing every enemy entity to have a movement pattern
+    for (var i = 0; i < ennemi.length; i++){ // Loop to test every enemy
         if (ennemi[i].time < 500) { 
-            ennemi[i].speedX = 1; //deplacement de l'ennemie vers la droite
+            ennemi[i].speedX = 1; // Enemy movement to the right
             ennemi[i].time = ennemi[i].time + 1;
         } else if (ennemi[i].time > 500 && ennemi[i].time < 1000) {
-            ennemi[i].speedX = -1; //depalacement de l'ennemie vers la gauche
+            ennemi[i].speedX = -1; // Enemy movement to the left
             ennemi[i].time = ennemi[i].time + 1
         } else if (ennemi[i].time > 1000) {
-            ennemi[i].time -= 1000; // reset l'intervalle de temps du pattern
+            ennemi[i].time -= 1000; // Reset the time in between patterns
         }
-        if (ennemi[i].image == "EnnemiFlying"){ // ennemie volant
-            ennemi[i].speedY = 0 //pas de gravité
+        if (ennemi[i].image == "EnnemiFlying"){ // Flying enemy
+            ennemi[i].speedY = 0 // No gravity
         }
     }
     return ennemi

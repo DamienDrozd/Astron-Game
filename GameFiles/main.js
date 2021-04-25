@@ -584,6 +584,6 @@ level[1] = {
     update: function() {
         var ctx = myGameArea.canvas.getContext("2d");
         var img = document.getElementById("level2");
-        ctx.drawImage(img, this.x, this.y, this.width, this.height); // Displays
+        ctx.drawImage(img, this.x, this.y, this.width, this.height); // Displays the map
     }
 }
