@@ -3,16 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>gamejs</title>
+    <title>Astron</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="shortcut icon" type="image/png" href="sprite\favicon\ms-icon-150x150.png"/>
     
-    <style>
-        body {
-            margin: 0;
-            font-size: 14px;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-        }
-    </style>
 </head>
 
 
@@ -20,16 +14,11 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <style>
-        
-        canvas {
-            border: 1px solid #d3d3d3;
-            background-color: #000000;
-            height: 80%;
-            width: 80%;
-        }
-    </style>
+    <link rel="stylesheet" href="main.css"/>
+    <title>Astron</title>
+    
 </head>
+
 
 <!--------------------------------------------Chargement des modules--------------------------------------->
 <script type="module" src="player.js"></script>
@@ -39,6 +28,18 @@
 <script type="module" src="collide.js"></script>
 <script type="module" src="object.js"></script>
 <body >
+
+    
+
+    <div class="titre">
+        <h1>Astron</h1>
+    </div>
+
+    <div class="commandes">
+            <img src="sprite\WebSite\controlwhite.png" width="960" height="540">
+    </div>
+
+
     <!------------------------------------ chargement des images ------------------------------------------------>
     <img id="level1" width="0" height="0" src="sprite\Map\MapFinale.png">
     <img id="level2" width="0" height="0" src="sprite\Map\MapFinale2.png">
@@ -69,8 +70,7 @@
     <img id="CoinSmall" width="0" height="0" src="sprite\Coin\CoinSmall.png">
     <img id="EndGame" width="0" height="0" src="sprite\EndGameSprite.png">
 
-
-
+    
     
     <script type="module" >
         
@@ -86,6 +86,11 @@
         
         
     </script>
+
+    <canvas id="canvas" width="150" height="150"></canvas>
+
+    
+
 </body>
 
 

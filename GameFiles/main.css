@@ -1,0 +1,30 @@
+
+::-webkit-scrollbar {
+    display: none;
+}
+body {
+background-image: url("sprite\\WebSite\\background.png");
+}
+.titre {
+    height: 70px;
+    line-height: 65px;
+    text-align: center;
+    font-family: "Arial Black";
+    color: white;
+    background-color: #0e0e0e;
+    border-bottom: 3px solid white; 
+
+}
+canvas {
+    text-align:center;
+    Margin : auto;
+
+    background-color: #000000;
+    height: 80%;
+    width: 80%;
+}
+.commandes {
+
+    text-align: center;
+    margin-top: -80px;
+}

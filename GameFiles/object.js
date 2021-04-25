@@ -4,8 +4,8 @@ import{updateGameArea} from './main.js';
 
 
 
-function component(width, height, color, x, y, image) { // création d'un objet
-    this.width = width; //largeur de l'objet
+function component(width, height, color, x, y, image) { // Create an object
+    this.width = width; // Object width
     this.height = height; //hauteur de l'objet
     this.x = x; // Coordonée en x de l'objet
     this.y = y; //Coordonée en y de l'objet
@@ -25,7 +25,7 @@ function component(width, height, color, x, y, image) { // création d'un objet
         if (myGameArea.keys && myGameArea.keys[46]) {
             ctx2.fillRect(this.x, this.y, this.width, this.height); // affichage de l'objet
         }
-        if (this.image != null) {
+        if (this.image != null) {//affichage des sprites en fonction de la taille de ceux ci
             var ctx = myGameArea.canvas.getContext("2d");
             var img = document.getElementById(this.image);
             if (this.image == "BulletRight" || this.image == "BulletLeft" || this.image == "BulletUpRight" || this.image == "BulletUpLeft") {
@@ -50,13 +50,14 @@ function component(width, height, color, x, y, image) { // création d'un objet
 }
 
 var myGameArea = {
-    canvas: document.createElement("canvas"),
+    canvas: document.getElementById("canvas"),
     start: function() {
         this.canvas.width = 1000; // Taille du canneva dynamique
         this.canvas.height = (1000) / (16 / 9);
         this.context = this.canvas.getContext("2d");
-        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-        var globalID = requestAnimationFrame(updateGameArea);
+        requestAnimationFrame(updateGameArea);
+
+
         window.addEventListener('keydown', function(e) { // Gestion du clavier
             myGameArea.keys = (myGameArea.keys || []);
             myGameArea.keys[e.keyCode] = true;
@@ -72,54 +73,32 @@ var myGameArea = {
 
 function camera(player, platforme, piegepik, ennemi, endlevel, level, numerolevel, coins) {
     
-    if (player.x <= 300 || player.x >= 600) {
+    if (player.x <= 300 || player.x >= 600) {// La caméra bouge si le joueur est entre 300 et 600
 
-        if (player.x < 300) {
+        if (player.x < 300) {//La position du joueur est bloqué
             player.x = 300
         }
         if (player.x > 600) {
             player.x = 600
         }
         for (var i = 0; i < platforme.length; i++) { //
-            platforme[i].x -= player.speedX
+            platforme[i].x -= player.speedX//Les platformes bougent en fonction du joueur
         }
-        for (var i = 0; i < piegepik.length; i++) { //
+        for (var i = 0; i < piegepik.length; i++) { //Les pièges bougent en fonction du joueur
             piegepik[i].x -= player.speedX
         }
-        for (var i = 0; i < ennemi.length; i++) { //
+        for (var i = 0; i < ennemi.length; i++) { //Les ennemi bougent en fonction du joueur
             ennemi[i].x -= player.speedX
         }
 
-        for (var i = 0; i < coins.length; i++) {
+        for (var i = 0; i < coins.length; i++) { //Les pièces bougent en fonction du joueur
             coins[i].x -= player.speedX
         }
-        endlevel.x -= player.speedX
-        level[numerolevel].x -= player.speedX
+        endlevel.x -= player.speedX //La fin du level bougent en fonction du joueur
+        level[numerolevel].x -= player.speedX //Le design du level bouge en fonction du joueur
     }
 
-    // if (player.y <= 100 || player.y >= 450) {
-    //     if (player.y < 100) {
-    //         player.y = 100
-    //     }
-    //     if (player.y > 450) {
-    //         player.y = 450
-    //     }
-    //     player.y -= player.speedY
-    //     for (var i = 0; i < platforme.length; i++) { //
-    //         platforme[i].y -= player.speedY
-    //     }
-    //     for (var i = 0; i < piegepik.length; i++) { //
-    //         piegepik[i].y -= player.speedY
-    //     }
-    //     for (var i = 0; i < ennemi.length; i++) { //
-    //         ennemi[i].y -= player.speedY
-    //     }
-    //     for (var i = 0; i < coins.length; i++) {
-    //         coins[i].y -= player.speedY
-    //     }
-    //     endlevel.y -= player.speedY
-    //     level[numerolevel].y -= player.speedY
-    // }
+
 
     if (player.y>500){
         player.y -= 500
@@ -166,37 +145,37 @@ function camera(player, platforme, piegepik, ennemi, endlevel, level, numeroleve
 
 function changelevel(testcollide, player, endlevel, platforme, piegepik, ennemi, level, ammo, coins, numerolevel,gameanim) {
     if (testcollide(player, endlevel) != null) {
-        endlevel.width = 0;
+        endlevel.width = 0;// réset la variable fin de level
         endlevel.height = 0
         numerolevel++
-        console.log(numerolevel,level.length)
-        if (numerolevel<level.length){
-            level[numerolevel].start()
+        
+        if (numerolevel<level.length){// Si le niveau n'est pas le dernier alors...
+            level[numerolevel].start()// création de nouveaux objets du level suivant et supression des anciens
         } else{
-            gameanim = false
-            console.log("test")
+            gameanim = false// Bloquage du jeu
+            
             var ctx = myGameArea.canvas.getContext("2d");
             var img = document.getElementById("EndGame");
-            ctx.drawImage(img, 0, 0, 1000, 550);
+            ctx.drawImage(img, 0, 0, 1000, 550);// Image de fin de jeu
         }
         
     }
     return [numerolevel, platforme, piegepik, ennemi, ammo, coins, gameanim]
 }
 
-function scoreboard(timer, score, NombreMort) {
+function scoreboard(timer, score, NombreMort) {// Affichage de scoreboard
     timer++
     var ctx = myGameArea.canvas.getContext('2d');
-    var img = document.getElementById("ScoreBoard");
+    var img = document.getElementById("ScoreBoard");//Image de fond du scoreboard
     ctx.drawImage(img, 60, 25, 200, 85);
-    ctx.font = "15pt Arial";
+    ctx.font = "15pt Arial";//Choix de la police
     ctx.strokeStyle = "rgb(0,0,0)";
     ctx.fillStyle = "rgb(0,0,0)";
     ctx.fillText("TIMER:", 100, 55);
-    ctx.fillText(Math.round(timer / 60), 200, 55);
+    ctx.fillText(Math.round(timer / 60), 200, 55);// Affichage du timer
     ctx.fillText("Score:", 100, 75);
-    ctx.fillText(score, 200, 75);
+    ctx.fillText(score, 200, 75);// Affichage du score
     ctx.fillText("Deads:", 100, 95);
-    ctx.fillText(NombreMort, 200, 95);
+    ctx.fillText(NombreMort, 200, 95);//Affichage du nombre de morts.
     return timer
 }

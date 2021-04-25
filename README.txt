@@ -1,3 +1,15 @@
+GameName:
+Astron
+
+GameDescription:
+Astron is a BountyHunter.
+In order to earn money and survive he have to kill the radioactive skulls of Fukushima who have come alive after the explosion of the central.
+On this game the player have to finish the game without diying, Astron can shoot, jump, use a double jump and a wall jump. 
+You can die if you touch the ennemies or if you touch the spikes.
+In order to increase your score, you have to collect the coins and kill the ennemies. You can also try to speedrun the game with the integrated timer.
+Try to win the game without diying :)
+
+
 GameContoll:
 [D] = Strafe Right
 [Q] = Strafe LEFT
