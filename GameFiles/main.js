@@ -382,17 +382,35 @@ level[0] = {
         piegepik[16] = new component(405, 20, "white", 563, 1980);
         piegepik[17] = new component(89, 25, "white", 721, 1780);
         /*---------- Enemies -------*/
-        ennemi[0] = new component(30, 30, "red", 900, 440);
+        
+        ennemi[0] = new component(30,30,"red",921,440);
         ennemi[0].image = "Ennemi1"
-        ennemi[1] = new component(30, 30, "red", 900, 300);
-        ennemi[1].image = "EnnemiFlying"
+        ennemi[1] = new component(30,30,"red",1424,440);
+        ennemi[1].image = "Ennemi1"
+        ennemi[2] = new component(30,30,"red",772,800);
+        ennemi[2].image = "EnnemiFlying"
+        ennemi[3] = new component(30,30,"red",790,1440);
+        ennemi[3].image = "EnnemiFlying"
+        ennemi[4] = new component(30,30,"red",1290,1410);
+        ennemi[4].image = "EnnemiFlying"
+        ennemi[5] = new component(30,30,"red",1234,1898);
+        ennemi[5].image = "EnnemiFlying"
+        ennemi[6] = new component(30,30,"red",635,1838);
+        ennemi[6].image = "EnnemiFlying"
+
 
         /*----------- End level ------*/
         endlevel = new component(100, 100, "white", 0, 1900);
 
 
         /*----------- Coins ---------*/
-        coins[0] = new component(30, 30, "yellow", 400, 400)
+       //pieces
+        coins[0] = new component(30,30,"yellow",1767,80);
+        coins[1] = new component(30,30,"yellow",1214,663);
+        coins[2] = new component(30,30,"yellow",251,1238);
+        coins[3] = new component(30,30,"yellow",752,1688);
+
+        //ennemis
 
 
 
