@@ -16,13 +16,15 @@ background-image: url("sprite\\WebSite\\background.png");
 
 }
 canvas {
-    text-align:center;
-    Margin : auto;
+    
+    
 
     background-color: #000000;
     height: 80%;
     width: 80%;
+    text-align:center;
 }
+
 .commandes {
 
     text-align: center;

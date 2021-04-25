@@ -572,6 +572,23 @@ level[1] = {
         platforme[119]= new component(191,32,"blue",7071,31);
         platforme[120]= new component(160,32,"blue",7071,62);
         endlevel = new component(54, 70,"white",7606,410);
+
+        ennemi[0] = new component(30,30,"red",1289,357);
+        ennemi[0].image = "EnnemiFlying"
+        ennemi[1] = new component(30,30,"red",3083,294);
+        ennemi[1].image = "EnnemiFlying"
+        ennemi[2] = new component(30,30,"red",4462,450);
+        ennemi[2].image = "Ennemi1"
+        ennemi[3] = new component(30,30,"red",5869,98);
+        ennemi[3].image = "Ennemi1"
+        ennemi[4] = new component(30,30,"red",6177,323);
+        ennemi[4].image = "EnnemiFlying"
+        ennemi[5] = new component(30,30,"red",6275,450);
+        ennemi[5].image = "Ennemi1"
+        ennemi[6] = new component(30,30,"red",6363,354);
+        ennemi[6].image = "EnnemiFlying"
+
+        
         this.x = 0
         this.y = 0
         this.width = 8192
