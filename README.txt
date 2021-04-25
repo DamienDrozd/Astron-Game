@@ -12,6 +12,8 @@ You can die if you touch an enemy or if you touch the spikes.
 In order to increase your score, you have to collect coins and kill enemies. You can also try to speedrun the game with the integrated timer.
 Try to win without diying :)
 
+https://github.com/ItsGibbs/PlatformerJS
+
 
 GameControls:
 [D] = Strafe Right
