@@ -389,14 +389,12 @@ level[0] = {
         ennemi[1].image = "Ennemi1"
         ennemi[2] = new component(30,30,"red",772,800);
         ennemi[2].image = "EnnemiFlying"
-        ennemi[3] = new component(30,30,"red",790,1440);
+        ennemi[3] = new component(30,30,"red",1290,1410);
         ennemi[3].image = "EnnemiFlying"
-        ennemi[4] = new component(30,30,"red",1290,1410);
+        ennemi[4] = new component(30,30,"red",1234,1898);
         ennemi[4].image = "EnnemiFlying"
-        ennemi[5] = new component(30,30,"red",1234,1898);
+        ennemi[5] = new component(30,30,"red",635,1838);
         ennemi[5].image = "EnnemiFlying"
-        ennemi[6] = new component(30,30,"red",635,1838);
-        ennemi[6].image = "EnnemiFlying"
 
 
         /*----------- End level ------*/

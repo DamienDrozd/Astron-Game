@@ -57,7 +57,6 @@ function playermove(timerfall, jump, walljumptimer, nbjump, walljump, player, pl
             } else if (player.x + 3 > platforme[i].x + platforme[i].width) {
                 walljump = true
                 if (myGameArea.keys && myGameArea.keys[32] && jump == true) {
-                    console.log("gauche")
                     var audio = new Audio('sprite\\Audio\\Jump.wav'); // Jump audio
                     audio.play();
                     player.accumulationY = -110; // Adds a Y force allowing the jump
