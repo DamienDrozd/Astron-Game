@@ -15,6 +15,12 @@ Try to win without diying :)
 The game is available on GitHub : https://github.com/ItsGibbs/PlatformerJS
 
 
+HowToPlay:
+
+-Install the "liveserver" extension on Visual Studio Code
+-In the VSCode explorer, right clic on "main.html" and select "Open with Live Server"
+
+
 GameControls:
 [D] = Strafe Right
 [Q] = Strafe Left
@@ -25,4 +31,3 @@ GameControls:
 [LEFT ARROW] = Shoot Left
 [RIGHT ARROW]+[UP ARROW] = Shoot Up Right
 [LEFT ARROW]+[UP ARROW] = Shoot Up Left
-
