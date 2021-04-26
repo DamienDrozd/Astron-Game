@@ -2,6 +2,10 @@
 ::-webkit-scrollbar {
     display: none;
 }
+*{
+    margin: 0;
+    padding: 0;
+}
 body {
 background-image: url("sprite\\WebSite\\background.png");
 }
@@ -16,13 +20,12 @@ background-image: url("sprite\\WebSite\\background.png");
 
 }
 canvas {
-    
-    
-
     background-color: #000000;
-    height: 80%;
+    align-items: center;
     width: 80%;
-    text-align:center;
+    height: 80%;
+    /* position: absolute; */
+    left: 10%;
 }
 
 .commandes {

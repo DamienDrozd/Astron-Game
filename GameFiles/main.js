@@ -20,7 +20,6 @@ var jump = false;
 var walljump = false;
 var nbjump = 0;
 var walljumptimer = 0;
-var numerolevel = 0;
 var gameanim = true;
 var tmort = 100;
 var mortaudio = true;
@@ -31,6 +30,8 @@ var release = true;
 var score = 0;
 var timer = 0;
 var NombreMort = 0;
+
+var numerolevel = 0;
 
 
 
@@ -112,7 +113,6 @@ function updateGameArea() { // Main func, read with each framexport {component, 
         coins[i].newPos();
         coins[i].update();
     }
-
     // Manages the level change 
     var changeleveltab = changelevel(testcollide, player, endlevel, platforme, piegepik, ennemi, level, ammo, coins, numerolevel,gameanim) 
     numerolevel = changeleveltab[0]
@@ -171,7 +171,7 @@ function dieanim() { // Function triggered when the character dies
 
         gameanim = true
         tmort = 100
-
+        score = 0;
         player.speedX = 0
         player.speedY = 0
         level[numerolevel].start() // The game is reset from level start
@@ -596,17 +596,26 @@ level[1] = {
         ennemi[1] = new component(30,30,"red",3083,294);
         ennemi[1].image = "EnnemiFlying"
         ennemi[2] = new component(30,30,"red",4462,450);
-        ennemi[2].image = "Ennemi1"
+        ennemi[2].image = "Ennemi2"
         ennemi[3] = new component(30,30,"red",5869,98);
-        ennemi[3].image = "Ennemi1"
+        ennemi[3].image = "Ennemi3"
         ennemi[4] = new component(30,30,"red",6177,323);
         ennemi[4].image = "EnnemiFlying"
         ennemi[5] = new component(30,30,"red",6275,450);
-        ennemi[5].image = "Ennemi1"
+        ennemi[5].image = "Ennemi3"
         ennemi[6] = new component(30,30,"red",6363,354);
         ennemi[6].image = "EnnemiFlying"
 
-        
+        coins[0] = new component(30,30,"yellow",94,132);
+        coins[1] = new component(30,30,"yellow",1075,286);
+        coins[2] = new component(30,30,"yellow",2484,75);
+        coins[3] = new component(30,30,"yellow",5073,115);
+
+        for (var i = 0; i < coins.length; i++) {
+            coins[i].image = "CoinLarge"
+        }
+
+
         this.x = 0
         this.y = 0
         this.width = 8192
