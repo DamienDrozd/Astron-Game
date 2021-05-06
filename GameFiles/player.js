@@ -32,21 +32,22 @@ function playermove(timerfall, jump, walljumptimer, nbjump, walljump, player, pl
                 walljumptimer = 0
                 stopjump = true
             }
-        }
+        } else{
         
-        if (nbjump == 0 || nbjump == 1 && jump == true && walljump == false) { // Second jump
-            var audio = new Audio('sprite\\Audio\\jump2.wav');
-            audio.play(); // Jump audio
-            player.accumulationY = -160; // Adds a Y force allowing the jump
-            timerfall = 1;
-            jump = false;
-            nbjump++; // Jump amount goes up
+            if (nbjump == 0 || nbjump == 1 && jump == true && walljump == false) { // Second jump
+                var audio = new Audio('sprite\\Audio\\jump2.wav');
+                audio.play(); // Jump audio
+                player.accumulationY = -160; // Adds a Y force allowing the jump
+                timerfall = 1;
+                jump = false;
+                nbjump++; // Jump amount goes up
 
-            if (nbjump == 1){
-                nbjump++;
+                if (nbjump == 1){
+                    nbjump++;
+                }
+
+                walljumptimer = 0
             }
-
-            walljumptimer = 0
         }
     } else {
 
