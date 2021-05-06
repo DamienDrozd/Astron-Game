@@ -8,16 +8,18 @@ function playermove(timerfall, jump, walljumptimer, nbjump, walljump, player, pl
     //-------------------------- Manages jumps/double jump --------------------------------------------------
     if (myGameArea.keys && myGameArea.keys[32]) {
 
-        if (nbjump == 0 && jump == true && stopjump == false) { // First jump
+        if (nbjump == 0 && stopjump == false) { // First jump
             timerfall++;
             player.accumulationY = -150; // Adds a Y force allowing the jump
             var audio = new Audio('sprite\\Audio\\jump2.wav'); // Jump audio
             audio.play();
             nbjump++ // Jump amount goes up
+            timerfall = 1;
             jump = false
             walljumptimer = 0
             stopjump = true
         }
+        
         if (nbjump == 1 && jump == true && walljump == false) { // Second jump
             var audio = new Audio('sprite\\Audio\\jump2.wav');
             audio.play(); // Jump audio
@@ -32,6 +34,8 @@ function playermove(timerfall, jump, walljumptimer, nbjump, walljump, player, pl
         stopjump = false
         jump = true;
     }
+    console.log(walljump)
+    
     // ------------------------------------------- Manage wall jumps ------------------------------------------------
     for (var i = 0; i < platforme.length; i++) { //
         var collidepos = testcollide(player, platforme[i])
@@ -70,7 +74,20 @@ function playermove(timerfall, jump, walljumptimer, nbjump, walljump, player, pl
                 walljump = false
                 player.speedX = 0
             }
-        }
+        } 
+    }
+
+    var test = false;
+    for (var i = 0; i < platforme.length; i++) { //
+        var collidepos = testcollide(player, platforme[i])
+        if (collidepos != null) {
+            test = true;
+            break
+        } 
+    }
+
+    if (test == false){
+        walljump = false;
     }
 
     // Increase timers

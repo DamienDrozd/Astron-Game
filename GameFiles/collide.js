@@ -44,8 +44,9 @@ function collide(timerfall, jump, walljumptimer, player, platforme, nbjump, pieg
         }
         if (collidepos == "haut") {
             player.y = platforme[i].y + platforme[i].height + 1; // Player cannot get inside the object
-            timerfall = 40
+            timerfall = 0
             player.speedY = 0
+            player.accumulationY = 0
         }
         if (collidepos == "gauche") {
             player.x = platforme[i].x - player.width; // Player cannot get inside the object
