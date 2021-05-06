@@ -1,6 +1,6 @@
 
 export {component, myGameArea, camera,  changelevel, scoreboard }
-import{updateGameArea} from 'GameFiles/main.js';
+import{updateGameArea} from './main.js';
 
 
 

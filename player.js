@@ -23,7 +23,7 @@ function playermove(timerfall, jump, walljumptimer, nbjump, walljump, player, pl
             if (nbjump == 0  && stopjump == false && jump == true) { // First jump
                 timerfall++;
                 player.accumulationY = -150; // Adds a Y force allowing the jump
-                var audio = new Audio('sprite\\Audio\\jump2.wav'); // Jump audio
+                var audio = new Audio('\\sprite\\Audio\\jump2.wav'); // Jump audio
                 audio.play();
                 nbjump++ // Jump amount goes up
                 timerfall = 1;
