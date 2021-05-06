@@ -12,7 +12,7 @@ if (obj1.y+obj1.height > obj2.y && obj1.x + obj1.width > obj2.x+5 && obj1.x   < 
 return "bas"
 }
 // Collision with a platform above
-if (obj1.y > obj2.y && obj1.y > obj2.y + obj2.height-10){
+if (obj1.y > obj2.y && obj1.y > obj2.y + obj2.height-6){
 return "haut"
 }
 // Collision with a platform on the right

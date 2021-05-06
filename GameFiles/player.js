@@ -15,7 +15,6 @@ function playermove(timerfall, jump, walljumptimer, nbjump, walljump, player, pl
         }
     }
 
-    console.log(stopjump,jump)
 
     //-------------------------- Manages jumps/double jump --------------------------------------------------
     if (myGameArea.keys && myGameArea.keys[32]) {
