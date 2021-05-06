@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Astron</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="shortcut icon" type="image/png" href="GameFiles\sprite\favicon\ms-icon-150x150.png"/>
+    
+</head>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="GameFiles\main.css"/>
+    <title>Astron</title>
+    
+</head>
+
+
+<!--------------------------------------------Chargement des modules--------------------------------------->
+<script type="module" src="GameFiles\player.js"></script>
+<script type="module" src="GameFiles\weapon.js"></script>
+<script type="module" src="GameFiles\ennemi.js"></script>
+<script type="module" src="GameFiles\player.js"></script>
+<script type="module" src="GameFiles\collide.js"></script>
+<script type="module" src="GameFiles\object.js"></script>
+<body >
+
+    
+
+    <div class="titre">
+        <h1>Astron</h1>
+    </div>
+
+    <div class="commandes">
+            <img src="GameFiles\sprite\WebSite\controlwhite.png" width="960" height="540">
+    </div>
+
+
+    <!------------------------------------ chargement des images ------------------------------------------------>
+    <img id="level1" width="0" height="0" src="GameFiles\sprite\Map\MapFinale.png">
+    <img id="level2" width="0" height="0" src="GameFiles\sprite\Map\MapFinale2.png">
+    <img id="PlayerJumpRight" width="0" height="0" src="GameFiles\sprite\Character\PlayerJump.png">
+    <img id="PlayerRunningRight" width="0" height="0" src="GameFiles\sprite\Character\PlayerRunning.png">
+    <img id="PlayerJumpLeft" width="0" height="0" src="GameFiles\sprite\Character\PlayerJumpReverted.png">
+    <img id="PlayerRunningLeft" width="0" height="0" src="GameFiles\sprite\Character\PlayerRunningReverted.png">
+    <img id="PlayerStandingFace" width="0" height="0" src="GameFiles\sprite\Character\PlayerStandingFace.png">
+    <img id="PlayerDead" width="0" height="0" src="GameFiles\sprite\Character\PlayerDead.png">
+    <img id="PauseMenu" width="0" height="0" src="GameFiles\sprite\UI\PauseMenu.png">
+    <img id="ScoreBoard" width="0" height="0" src="GameFiles\sprite\UI\Scoreboard.png">
+
+    
+    <img id="Bullet" width="0" height="0" src="GameFiles\sprite\Bullet\BalleDroite.png">
+    <img id="BulletRight" width="0" height="0" src="GameFiles\sprite\Bullet\BalleDroite.png">
+    <img id="BulletLeft" width="0" height="0" src="GameFiles\sprite\Bullet\BalleGauche.png">
+    <img id="BulletUpRight" width="0" height="0" src="GameFiles\sprite\Bullet\BalleHautDroit.png">
+    <img id="BulletUpLeft" width="0" height="0" src="GameFiles\sprite\Bullet\BalleHautGauche.png">
+    <img id="BulletDownRight" width="0" height="0" src="GameFiles\sprite\Bullet\BalleBasDroit.png">
+    <img id="BulletDownLeft" width="0" height="0" src="GameFiles\sprite\Bullet\BalleBasGauche.png">
+    <img id="BulletUp" width="0" height="0" src="GameFiles\sprite\Bullet\BalleHaut.png">
+    <img id="BulletDown" width="0" height="0" src="GameFiles\sprite\Bullet\BalleBas.png">
+    <img id="Ennemi1" width="0" height="0" src="GameFiles\sprite\Ennemies\Enemy1Idle.png">
+    <img id="Ennemi2" width="0" height="0" src="GameFiles\sprite\Ennemies\Enemy2Idle.png">
+    <img id="Ennemi3" width="0" height="0" src="GameFiles\sprite\Ennemies\Enemy3Idle.png">
+    <img id="EnnemiFlying" width="0" height="0" src="GameFiles\sprite\Ennemies\Flying2-1.png">
+    <img id="CoinLarge" width="0" height="0" src="GameFiles\sprite\Coin\CoinLarge.png">
+    <img id="CoinSmall" width="0" height="0" src="GameFiles\sprite\Coin\CoinSmall.png">
+    <img id="EndGame" width="0" height="0" src="GameFiles\sprite\EndGameSprite.png">
+
+    
+    
+    <script type="module" >
+        
+
+        
+        import {startGame} from 'GameFiles/main.js';
+        
+        
+        
+        
+        
+        startGame();//game start
+        
+        
+    </script>
+
+    <canvas id="canvas" ></canvas>
+
+    
+
+</body>
+
+
+</html>
