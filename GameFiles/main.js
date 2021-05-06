@@ -114,7 +114,7 @@ function updateGameArea() { // Main func, read with each framexport {component, 
         coins[i].update();
     }
     // Manages the level change 
-    var changeleveltab = changelevel(testcollide, player, endlevel, platforme, piegepik, ennemi, level, ammo, coins, numerolevel,gameanim) 
+    var changeleveltab = changelevel(testcollide, player, endlevel, platforme, piegepik, ennemi, level, ammo, coins, numerolevel,gameanim,score) 
     numerolevel = changeleveltab[0]
     gameanim = changeleveltab[6]
 
@@ -171,7 +171,7 @@ function dieanim() { // Function triggered when the character dies
 
         gameanim = true
         tmort = 100
-        score = 0;
+        score = level[numerolevel].score;
         player.speedX = 0
         player.speedY = 0
         level[numerolevel].start() // The game is reset from level start
@@ -420,6 +420,7 @@ level[0] = {
         this.y = 0
         this.width = 2000
         this.height = 2000
+        this.score = 0
 
 
 

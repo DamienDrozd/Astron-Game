@@ -5,28 +5,47 @@ export{playermove}
 var stopjump = false
 function playermove(timerfall, jump, walljumptimer, nbjump, walljump, player, platforme, myGameArea) { // Player movements
 
+    var testbas = "";
+    for (var i = 0; i < platforme.length; i++) { //
+        var testbas = testcollide(player, platforme[i])
+        if (testbas == "bas") {
+            break
+        } else {
+            testbas = ""
+        }
+    }
+
+    console.log(nbjump)
+
     //-------------------------- Manages jumps/double jump --------------------------------------------------
     if (myGameArea.keys && myGameArea.keys[32]) {
 
-        if (nbjump == 0 && stopjump == false) { // First jump
-            timerfall++;
-            player.accumulationY = -150; // Adds a Y force allowing the jump
-            var audio = new Audio('sprite\\Audio\\jump2.wav'); // Jump audio
-            audio.play();
-            nbjump++ // Jump amount goes up
-            timerfall = 1;
-            jump = false
-            walljumptimer = 0
-            stopjump = true
+        if (testbas == "bas"){
+            if (nbjump == 0  && stopjump == false && jump == true) { // First jump
+                timerfall++;
+                player.accumulationY = -150; // Adds a Y force allowing the jump
+                var audio = new Audio('sprite\\Audio\\jump2.wav'); // Jump audio
+                audio.play();
+                nbjump++ // Jump amount goes up
+                timerfall = 1;
+                jump = false
+                walljumptimer = 0
+                stopjump = true
+            }
         }
         
-        if (nbjump == 1 && jump == true && walljump == false) { // Second jump
+        if (nbjump == 0 || nbjump == 1 && jump == true && walljump == false) { // Second jump
             var audio = new Audio('sprite\\Audio\\jump2.wav');
             audio.play(); // Jump audio
             player.accumulationY = -160; // Adds a Y force allowing the jump
             timerfall = 1;
             jump = false;
             nbjump++; // Jump amount goes up
+
+            if (nbjump == 1){
+                nbjump++;
+            }
+
             walljumptimer = 0
         }
     } else {
@@ -34,7 +53,7 @@ function playermove(timerfall, jump, walljumptimer, nbjump, walljump, player, pl
         stopjump = false
         jump = true;
     }
-    console.log(walljump)
+    
     
     // ------------------------------------------- Manage wall jumps ------------------------------------------------
     for (var i = 0; i < platforme.length; i++) { //

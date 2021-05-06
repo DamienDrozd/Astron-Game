@@ -143,12 +143,12 @@ function camera(player, platforme, piegepik, ennemi, endlevel, level, numeroleve
 }
 
 
-function changelevel(testcollide, player, endlevel, platforme, piegepik, ennemi, level, ammo, coins, numerolevel,gameanim) {
+function changelevel(testcollide, player, endlevel, platforme, piegepik, ennemi, level, ammo, coins, numerolevel,gameanim,score) {
     if (testcollide(player, endlevel) != null) {
         endlevel.width = 0; // Reset the end level variable
         endlevel.height = 0
         numerolevel++
-        
+        level[numerolevel].score = score;
         if (numerolevel<level.length){ // If the level isn't the last then...
             level[numerolevel].start() // Create new objects for the next level and deletes the previous ones
         } else{
