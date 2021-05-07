@@ -35,6 +35,42 @@ var numerolevel = 0;
 
 
 
+
+var frames = 0;
+var startTime = performance.now();
+var FPSNormal = 0;
+
+
+
+
+
+// Every 1000ms, let's update the framerate
+function calculateFPSNormal() {
+
+	var t = performance.now();
+	var dt = t - startTime;
+
+	// if elapsed time is greater than 1s
+	if( dt > 1000 ) {
+		// calculate the frames drawn over the period of time
+		FPSNormal = frames * 1000 / dt;
+		// and restart the values
+		frames = 0;
+		startTime = t;
+	}
+	frames++;
+
+    return FPSNormal
+    
+
+}
+
+
+
+
+
+
+
 function startGame() { // Function to start the game
 
     myGameArea.start(); // Placing the canvas
@@ -48,10 +84,17 @@ function startGame() { // Function to start the game
 
 function updateGameArea() { // Main func, read with each framexport {component, myGameArea, camera,  changelevel, scoreboard }
 
+
+
+    var FPSNORMAL = calculateFPSNormal();
+	
+
+
+
     myGameArea.clear() // Emptying the canva before refreshing it
     level[numerolevel].update(); // Update map display
 
-    timer = scoreboard(timer, score, NombreMort) // Display scoreboard
+    timer = scoreboard(timer, score, NombreMort, FPSNORMAL) // Display scoreboard
 
     var playerShootTab = playerShoot(myGameArea, ammo, ammoTimer, player, bulletvisible) // Function allowing the player to shoot
     ammoTimer = playerShootTab[1]

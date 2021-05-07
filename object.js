@@ -163,19 +163,21 @@ function changelevel(testcollide, player, endlevel, platforme, piegepik, ennemi,
     return [numerolevel, platforme, piegepik, ennemi, ammo, coins, gameanim]
 }
 
-function scoreboard(timer, score, NombreMort) { // Displays the scoreboard
+function scoreboard(timer, score, NombreMort,FPSNORMAL) { // Displays the scoreboard
     timer++
     var ctx = myGameArea.canvas.getContext('2d');
     var img = document.getElementById("ScoreBoard"); // Scoreboard background
-    ctx.drawImage(img, 60, 25, 200, 85);
+    ctx.drawImage(img, 60, 25, 200, 100);
     ctx.font = "15pt Arial"; // Font selection
     ctx.strokeStyle = "rgb(0,0,0)";
     ctx.fillStyle = "rgb(0,0,0)";
-    ctx.fillText("TIMER:", 100, 55);
-    ctx.fillText(Math.round(timer / 60), 200, 55); // Displays the timer
-    ctx.fillText("Score:", 100, 75);
-    ctx.fillText(score, 200, 75);  // Displays the score
-    ctx.fillText("Deads:", 100, 95);
-    ctx.fillText(NombreMort, 200, 95); // Displays the amount of death
+    ctx.fillText("TIMER:", 100, 50);
+    ctx.fillText(Math.round(timer / 60), 200, 50); // Displays the timer
+    ctx.fillText("Score:", 100, 70);
+    ctx.fillText(score, 200, 70);  // Displays the score
+    ctx.fillText("Deads:", 100, 90);
+    ctx.fillText(NombreMort, 200, 90); // Displays the amount of death
+    ctx.fillText("FPS:", 100, 110);
+    ctx.fillText(Math.round(FPSNORMAL), 200, 110); // Displays the amount of death
     return timer
 }
