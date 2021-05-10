@@ -15,7 +15,7 @@ function playermove(timerfall, jump, walljumptimer, nbjump, walljump, player, pl
         }
     }
 
-    console.log(timerfall)
+  
     //-------------------------- Manages jumps/double jump --------------------------------------------------
     if (myGameArea.keys && myGameArea.keys[32]) {
 
@@ -62,38 +62,39 @@ function playermove(timerfall, jump, walljumptimer, nbjump, walljump, player, pl
         var collidepos = testcollide(player, platforme[i])
         if (collidepos != null) {
 
+            if (platforme[i].walljump == true) {
+                if (player.x + player.width - 3 < platforme[i].x ) {
 
-            if (player.x + player.width - 3 < platforme[i].x ) {
 
+                    walljump = true
 
-                walljump = true
+                    if (myGameArea.keys && myGameArea.keys[32] && jump == true) {
 
-                if (myGameArea.keys && myGameArea.keys[32] && jump == true) {
-
-                    var audio = new Audio('sprite\\Audio\\DoubleJump.wav'); // Jump audio
-                    audio.play();
-                    player.accumulationY = -110; // Adds a Y force allowing the jump
-                    player.speedX = -20; // Adds a X force allowing the jump
-                    timerfall = 1;
+                        var audio = new Audio('sprite\\Audio\\DoubleJump.wav'); // Jump audio
+                        audio.play();
+                        player.accumulationY = -110; // Adds a Y force allowing the jump
+                        player.speedX = -20; // Adds a X force allowing the jump
+                        timerfall = 1;
+                        walljump = false
+                        jump = false
+                        walljumptimer = 1 // Cooldown timer for X movement after a wall jump
+                    }
+                } else if (player.x + 3 > platforme[i].x + platforme[i].width) {
+                    walljump = true
+                    if (myGameArea.keys && myGameArea.keys[32] && jump == true) {
+                        var audio = new Audio('sprite\\Audio\\Jump.wav'); // Jump audio
+                        audio.play();
+                        player.accumulationY = -110; // Adds a Y force allowing the jump
+                        player.speedX = 20; // Adds a X force allowing the jump
+                        timerfall = 1;
+                        walljump = false
+                        jump = false
+                        walljumptimer = 1 // Cooldown timer for X movement after a wall jump
+                    }
+                } else {
                     walljump = false
-                    jump = false
-                    walljumptimer = 1 // Cooldown timer for X movement after a wall jump
+                    player.speedX = 0
                 }
-            } else if (player.x + 3 > platforme[i].x + platforme[i].width) {
-                walljump = true
-                if (myGameArea.keys && myGameArea.keys[32] && jump == true) {
-                    var audio = new Audio('sprite\\Audio\\Jump.wav'); // Jump audio
-                    audio.play();
-                    player.accumulationY = -110; // Adds a Y force allowing the jump
-                    player.speedX = 20; // Adds a X force allowing the jump
-                    timerfall = 1;
-                    walljump = false
-                    jump = false
-                    walljumptimer = 1 // Cooldown timer for X movement after a wall jump
-                }
-            } else {
-                walljump = false
-                player.speedX = 0
             }
         } 
     }

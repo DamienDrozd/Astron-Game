@@ -5,7 +5,7 @@ export{collide}
 
 var chute = false
 // Detects collision between two objects/entities
-function collide(timerfall, jump, walljumptimer, player, platforme, nbjump, piegepik, ennemi, ammo, myGameArea, coins, score) {
+function collide(timerfall, jump, walljumptimer, player, platforme, nbjump, piegepik, ennemi, ammo, myGameArea, coins, score,Mort) {
     // Testing the collision between the coins and the players, then adds a score point
     for (var i = 0; i < coins.length; i++) { // Loop to test all of the game's coins
         var cScore = testcollide(player, coins[i]) // Call the testcollide function
@@ -78,14 +78,26 @@ function collide(timerfall, jump, walljumptimer, player, platforme, nbjump, pieg
     for (var i = 0; i < ennemi.length; i++) {
         var collideEnnemy = testcollide(player, ennemi[i]) // The program tests the collisions between the player and the enemy
         if (collideEnnemy != null) {
-            requestAnimationFrame(dieanim) // Starts death animation
+            if (Mort == false){
+                Mort = true
+                if (requestAnimationFrame(dieanim) == false){
+                    requestAnimationFrame(dieanim) // Starts death animation
+                    
+                }
+            }
         }
     }
     // Tests player/trap collisions
     for (var i = 0; i < piegepik.length; i++) {
         var pikPik = testcollide(player, piegepik[i]) // The program tests the collisions between the player and the traps
         if (pikPik != null) {
-            requestAnimationFrame(dieanim) // Starts death animation
+            if (Mort == false){
+                Mort = true
+                if (requestAnimationFrame(dieanim) == false){
+                    requestAnimationFrame(dieanim) // Starts death animation
+                    
+                }
+            }
         }
     }
 
@@ -137,5 +149,5 @@ function collide(timerfall, jump, walljumptimer, player, platforme, nbjump, pieg
         timerfall++
     }
     chute = false
-    return [timerfall, nbjump, jump, walljumptimer, player, platforme, piegepik, ennemi, ammo, coins, score]
+    return [timerfall, nbjump, jump, walljumptimer, player, platforme, piegepik, ennemi, ammo, coins, score,Mort]
 }

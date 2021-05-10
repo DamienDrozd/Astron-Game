@@ -19,6 +19,7 @@ function component(width, height, color, x, y, image) { // Create an object
     this.time = 0;
     this.affichagex = 0;
     this.affichagey = 0;
+    this.walljump = true
     this.update = function() { // Displays the object
         var ctx2 = myGameArea.context;
         ctx2.fillStyle = this.color; // Colour of the object
@@ -63,6 +64,8 @@ var myGameArea = {
         this.canvas.height = (1000) / (16 / 9);
         this.context = this.canvas.getContext("2d");
         requestAnimationFrame(updateGameArea);
+
+        
 
 
         window.addEventListener('keydown', function(e) { // Keyboard management

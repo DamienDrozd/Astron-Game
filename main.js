@@ -30,6 +30,7 @@ var release = true;
 var score = 0;
 var timer = 0;
 var NombreMort = 0;
+var Mort = false;
 
 var numerolevel = 0;
 
@@ -73,12 +74,12 @@ function calculateFPSNormal() {
 
 function startGame() { // Function to start the game
 
+    
+
     myGameArea.start(); // Placing the canvas
     level[numerolevel].start();
 
-    var myAudio = new Audio('sprite\\Audio\\MusicLoop.mp3'); // Using game audio
-    myAudio.loop = true;
-    myAudio.play();
+    
 
 }
 
@@ -88,6 +89,7 @@ var now;
 var then = Date.now();
 var interval = 1000/fps;
 var delta;
+var test = false;
   
 
      
@@ -105,6 +107,26 @@ function updateGameArea() { // Main func, read with each framexport {component, 
     delta = now - then;
      
     if (delta > interval) {
+
+        var myAudio = new Audio('sprite\\Audio\\MusicLoop.mp3'); // Using game audio
+        
+        if (test == false){
+            myAudio.loop = true;
+            test = true
+            
+            myAudio.play().then(() => {
+            console.log("lancement de la musique");
+            
+            }).catch((error) => {
+            console.log("Erreur: " + error);
+            test = false
+            
+            });
+        }
+        
+        
+        
+        
         // update time stuffs
          
         // Just `then = now` is not enough.
@@ -142,7 +164,7 @@ function updateGameArea() { // Main func, read with each framexport {component, 
 
 
         // Function managing every collision in the game
-        var collidetab = collide(timerfall, jump, walljumptimer, player, platforme, nbjump, piegepik, ennemi, ammo, myGameArea, coins, score)
+        var collidetab = collide(timerfall, jump, walljumptimer, player, platforme, nbjump, piegepik, ennemi, ammo, myGameArea, coins, score,Mort)
         timerfall = collidetab[0]
         nbjump = collidetab[1]
         jump = collidetab[2]
@@ -150,6 +172,7 @@ function updateGameArea() { // Main func, read with each framexport {component, 
         player = collidetab[4]
         ammo = collidetab[8]
         score = collidetab[10]
+        Mort = collidetab[11]
 
         // Function managing the player's movements
         var playermovetab = playermove(timerfall, jump, walljumptimer, nbjump, walljump, player, platforme, myGameArea, release);
@@ -219,6 +242,7 @@ function updateGameArea() { // Main func, read with each framexport {component, 
         }
     }
 
+    
 
     // Function allowing to read the code with each frame, therefor produce a 60fps animation
     
@@ -240,15 +264,22 @@ function dieanim() { // Function triggered when the character dies
     ctx.drawImage(img, affichagex, affichagey, 30 * 1.3, 30 * 1.3) // Displays death sprite
 
     player.image = null
-    player.update();
+    
     player.x = 0
     player.y = 0
     player.width = 0
     player.height = 0
+    player.update();
 
     for (var i = 0; i < piegepik.length; i++) {
         piegepik[i].width = 0
         piegepik[i].height = 0
+        piegepik[i].posX = -1000
+    }
+    for (var y = 0; y < ammo.length; y++) {
+            
+        ammo.splice(y, 1) // Deletes the projectiles
+            
     }
     tmort--
 
@@ -266,6 +297,7 @@ function dieanim() { // Function triggered when the character dies
         player.speedY = 0
         level[numerolevel].start() // The game is reset from level start
         mortaudio = true
+        Mort = false
 
         requestAnimationFrame(updateGameArea); // Resume the game
     }
