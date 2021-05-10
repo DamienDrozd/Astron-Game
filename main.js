@@ -82,9 +82,47 @@ function startGame() { // Function to start the game
 
 }
 
+
+var fps = 60;
+var now;
+var then = Date.now();
+var interval = 1000/fps;
+var delta;
+  
+
+     
+    
+
 function updateGameArea() { // Main func, read with each framexport {component, myGameArea, camera,  changelevel, scoreboard }
 
-
+    if (gameanim == true) {
+        if (requestAnimationFrame(updateGameArea) == false) {
+            requestAnimationFrame(updateGameArea);
+        }
+    }
+     
+    now = Date.now();
+    delta = now - then;
+     
+    if (delta > interval) {
+        // update time stuffs
+         
+        // Just `then = now` is not enough.
+        // Lets say we set fps at 10 which means
+        // each frame must take 100ms
+        // Now frame executes in 16ms (60fps) so
+        // the loop iterates 7 times (16*7 = 112ms) until
+        // delta > interval === true
+        // Eventually this lowers down the FPS as
+        // 112*10 = 1120ms (NOT 1000ms).
+        // So we have to get rid of that extra 12ms
+        // by subtracting delta (112) % interval (100).
+        // Hope that makes sense.
+         
+        then = now - (delta % interval);
+         
+        // ... Code for Drawing the Frame ...
+    
 
     var FPSNORMAL = calculateFPSNormal();
 	
@@ -168,13 +206,11 @@ function updateGameArea() { // Main func, read with each framexport {component, 
             requestAnimationFrame(pause)
         }
     }
+    }
+
 
     // Function allowing to read the code with each frame, therefor produce a 60fps animation
-    if (gameanim == true) {
-        if (requestAnimationFrame(updateGameArea) == false) {
-            requestAnimationFrame(updateGameArea);
-        }
-    }
+    
 }
 
 function dieanim() { // Function triggered when the character dies
@@ -516,11 +552,11 @@ level[1] = {
         platforme[21]= new component(130,32,"blue",2943,449); // Stairs
         platforme[22]= new component(96,32,"blue",2976,417);
         platforme[23]= new component(64,32,"blue",3009,385);
-        platforme[24]= new component(32,32,"blue",3041,353);
-        platforme[25]= new component(63,10,"blue",3073,353); // Plateform
+        platforme[24]= new component(32,30,"blue",3041,355);
+        platforme[25]= new component(93,10,"blue",3043,353); // Plateform
         piegepik[3]= new component(255,15,"white",3073,496); // Trap
-        platforme[26]= new component(63,10,"blue",3263,353); // Plateform
-        platforme[27]= new component(65,160,"blue",3326,353);
+        platforme[26]= new component(123,10,"blue",3264,353); // Plateform
+        platforme[27]= new component(65,158,"blue",3326,355);
         piegepik[4]= new component(767,15,"white",3393,496); // Trap
         platforme[28]= new component(32,10,"blue",3488,320); // Plateform
         platforme[29]= new component(32,10,"blue",3616,288);
