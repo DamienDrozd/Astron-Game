@@ -1,9 +1,9 @@
-export {playerShoot , bulletvisible}
+export {playerShoot }
 import {component} from './object.js'
 var ammo = []
 
 
-function playerShoot(myGameArea, ammo, ammoTimer, player, bulletvisible) {
+function playerShoot(myGameArea, ammo, ammoTimer, player) {
 
     if (ammoTimer > 0 && ammoTimer < 30) {
         ammoTimer++
@@ -11,7 +11,7 @@ function playerShoot(myGameArea, ammo, ammoTimer, player, bulletvisible) {
         ammoTimer = 0
     }
 
-    ammo = bulletvisible(ammo)
+    
 
     // If the player uses the right and up key then he shoots diagonaly
     if ((myGameArea.keys && myGameArea.keys[39]) && (myGameArea.keys && myGameArea.keys[38])) {

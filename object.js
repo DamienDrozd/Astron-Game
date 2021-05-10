@@ -36,6 +36,13 @@ function component(width, height, color, x, y, image) { // Create an object
                 ctx.drawImage(img, this.x - this.width * 0.3, this.y - this.height / 2.5, this.width * 1.5, this.height * 1.5)
             } else if (this.image == "CoinSmall" || this.image == "CoinLarge") {
                 ctx.drawImage(img, this.x - this.width * 0.3, this.y - this.height / 3, this.width * 1.5, this.height * 1.5)
+            }else if ( this.image == "PlayerStandingFace") {
+                ctx.drawImage(img, this.x+1 - this.width * 0.3, this.y - this.height / 2, this.width * 1.5, this.height * 1.5)
+            }else if (this.image == "PlayerRunningRight" || this.image == "PlayerJumpRight"  ){
+                ctx.drawImage(img, this.x+8 - this.width * 0.3, this.y - this.height / 2, this.width * 1.5, this.height * 1.5)
+
+            }else if (this.image == "PlayerRunningLeft" || this.image == "PlayerJumpLeft" ){
+                ctx.drawImage(img, this.x-6 - this.width * 0.3, this.y - this.height / 2, this.width * 1.5, this.height * 1.5)
             } else {
                 ctx.drawImage(img, this.x - this.width * 0.3, this.y - this.height / 2, this.width * 1.5, this.height * 1.5)
             }

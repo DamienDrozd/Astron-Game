@@ -3,7 +3,7 @@ import {collide} from './collide.js';
 import{testcollide} from './testcollide.js';
 import {playermove} from './player.js';
 import {ennemimove} from './ennemi.js';
-import {playerShoot, bulletvisible} from './weapon.js';
+import {playerShoot} from './weapon.js';
 import {component, myGameArea, camera,  changelevel, scoreboard } from "./object.js"
 
 // Creating our variables
@@ -122,90 +122,101 @@ function updateGameArea() { // Main func, read with each framexport {component, 
         then = now - (delta % interval);
          
         // ... Code for Drawing the Frame ...
-    
+        
 
-    var FPSNORMAL = calculateFPSNormal();
-	
-
-
-
-    myGameArea.clear() // Emptying the canva before refreshing it
-    level[numerolevel].update(); // Update map display
-
-    timer = scoreboard(timer, score, NombreMort, FPSNORMAL) // Display scoreboard
-
-    var playerShootTab = playerShoot(myGameArea, ammo, ammoTimer, player, bulletvisible) // Function allowing the player to shoot
-    ammoTimer = playerShootTab[1]
-
-    camera(player, platforme, piegepik, ennemi, endlevel, level, numerolevel, coins) // Function allowing to manage the camera
-
-    // Function managing every collision in the game
-    var collidetab = collide(timerfall, jump, walljumptimer, player, platforme, nbjump, piegepik, ennemi, ammo, myGameArea, coins, score)
-    timerfall = collidetab[0]
-    nbjump = collidetab[1]
-    jump = collidetab[2]
-    walljumptimer = collidetab[3]
-    player = collidetab[4]
-    ammo = collidetab[8]
-    score = collidetab[10]
-
-    // Function managing the player's movements
-    var playermovetab = playermove(timerfall, jump, walljumptimer, nbjump, walljump, player, platforme, myGameArea, release);
-    timerfall = playermovetab[0]
-    jump = playermovetab[1]
-    walljumptimer = playermovetab[2]
-    nbjump = playermovetab[3]
-    walljump = playermovetab[4]
-    player = playermovetab[5]
-    platforme = playermovetab[6]
-    release = playermovetab[7]
-
-    // Function managing enemies
-    ennemi = ennemimove(ennemi)
-
-    
-
-    // New player position
-    player.newPos(); // Refresh player position
-    player.update(); // Displays the player
-
-    // New position of the end level, based on the moving camera
-    endlevel.newPos()
-    endlevel.update()
-
-    for (var i = 0; i < ennemi.length; i++) { // Increments the enemy pattern's variable by 1
-        ennemi[i].time++
-    }
-    
-    for (var i = 0; i < platforme.length; i++) { 
-        platforme[i].newPos() // New platform position based on the camera movement
-        platforme[i].update(); // Displays the platforms
-    }
-    for (var i = 0; i < piegepik.length; i++) {
-        piegepik[i].newPos(); // New trap position based on the camera movement
-        piegepik[i].update(); // Displays the traps
-    }
-    for (var i = 0; i < ennemi.length; i++) {
-        ennemi[i].newPos(); // New enemy position based on the camera movement
-        ennemi[i].update(); // Displays the enemies
-        ennemi[i].speedY = 1;
-    }
-    for (var i = 0; i < coins.length; i++) {
-        coins[i].newPos();
-        coins[i].update();
-    }
-    // Manages the level change 
-    var changeleveltab = changelevel(testcollide, player, endlevel, platforme, piegepik, ennemi, level, ammo, coins, numerolevel,gameanim,score) 
-    numerolevel = changeleveltab[0]
-    gameanim = changeleveltab[6]
+        var FPSNORMAL = calculateFPSNormal();
+        
 
 
-    // Manages the pause
-    if (myGameArea.keys && myGameArea.keys[27]) { // Pause menu
-        if (requestAnimationFrame(pause) == false) {
-            requestAnimationFrame(pause)
+
+        myGameArea.clear() // Emptying the canva before refreshing it
+
+        camera(player, platforme, piegepik, ennemi, endlevel, level, numerolevel, coins) // Function allowing to manage the camera
+
+        
+        level[numerolevel].update(); // Update map display
+        
+
+        var playerShootTab = playerShoot(myGameArea, ammo, ammoTimer, player) // Function allowing the player to shoot
+        ammoTimer = playerShootTab[1]
+
+
+        // Function managing every collision in the game
+        var collidetab = collide(timerfall, jump, walljumptimer, player, platforme, nbjump, piegepik, ennemi, ammo, myGameArea, coins, score)
+        timerfall = collidetab[0]
+        nbjump = collidetab[1]
+        jump = collidetab[2]
+        walljumptimer = collidetab[3]
+        player = collidetab[4]
+        ammo = collidetab[8]
+        score = collidetab[10]
+
+        // Function managing the player's movements
+        var playermovetab = playermove(timerfall, jump, walljumptimer, nbjump, walljump, player, platforme, myGameArea, release);
+        timerfall = playermovetab[0]
+        jump = playermovetab[1]
+        walljumptimer = playermovetab[2]
+        nbjump = playermovetab[3]
+        walljump = playermovetab[4]
+        player = playermovetab[5]
+        platforme = playermovetab[6]
+        release = playermovetab[7]
+
+        timer = scoreboard(timer, score, NombreMort, FPSNORMAL) // Display scoreboard
+
+        
+
+        // Function managing enemies
+        ennemi = ennemimove(ennemi)
+
+        // New player position
+        player.newPos(); // Refresh player position
+        player.update(); // Displays the player
+
+        
+
+        // New position of the end level, based on the moving camera
+        endlevel.newPos()
+        endlevel.update()
+
+        for (var i = 0; i < ammo.length; i++) {
+            ammo[i].newPos() // Modification of the bullet's position
+            ammo[i].update() // Displays the bullet
         }
-    }
+
+        for (var i = 0; i < ennemi.length; i++) { // Increments the enemy pattern's variable by 1
+            ennemi[i].time++
+        }
+        
+        for (var i = 0; i < platforme.length; i++) { 
+            platforme[i].newPos() // New platform position based on the camera movement
+            platforme[i].update(); // Displays the platforms
+        }
+        for (var i = 0; i < piegepik.length; i++) {
+            piegepik[i].newPos(); // New trap position based on the camera movement
+            piegepik[i].update(); // Displays the traps
+        }
+        for (var i = 0; i < ennemi.length; i++) {
+            ennemi[i].newPos(); // New enemy position based on the camera movement
+            ennemi[i].update(); // Displays the enemies
+            ennemi[i].speedY = 1;
+        }
+        for (var i = 0; i < coins.length; i++) {
+            coins[i].newPos();
+            coins[i].update();
+        }
+        // Manages the level change 
+        var changeleveltab = changelevel(testcollide, player, endlevel, platforme, piegepik, ennemi, level, ammo, coins, numerolevel,gameanim,score) 
+        numerolevel = changeleveltab[0]
+        gameanim = changeleveltab[6]
+
+
+        // Manages the pause
+        if (myGameArea.keys && myGameArea.keys[27]) { // Pause menu
+            if (requestAnimationFrame(pause) == false) {
+                requestAnimationFrame(pause)
+            }
+        }
     }
 
 
