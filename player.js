@@ -34,7 +34,7 @@ function playermove(timerfall, jump, walljumptimer, nbjump, walljump, player, pl
         } else {
         
         
-            if ((nbjump == 0 && (timerfall > 15 ) ) || (nbjump == 1 && jump == true && walljump == false )  ) { // Second jump
+            if ((nbjump == 0 && (timerfall > 12 ) ) || (nbjump == 1 && jump == true && walljump == false )  ) { // Second jump
                 var audio = new Audio('sprite\\Audio\\jump2.wav');
                 audio.play(); // Jump audio
                 player.accumulationY = -160; // Adds a Y force allowing the jump
@@ -177,15 +177,21 @@ function playermove(timerfall, jump, walljumptimer, nbjump, walljump, player, pl
     for (var i = 0; i < platforme.length; i++) { // Allows to prevent the player from glitching into walls
         var collidepos = testcollide(player, platforme[i]) // Tests the collision between players and obstacles
         if (collidepos != null) {
+            console.log(player.x, player.width)
+            
+            console.log(platforme[i].x,platforme[i].width)
+            
             if (collidepos == "gauche") {
-                player.x = platforme[i].x - player.width;
+                // player.x = platforme[i].x - player.width;
+                
                 if (player.speedX > 0) {
                     player.speedX = 0
                     // player.accumulationX = 0
                 }
             }
             if (collidepos == "droite") {
-                player.x = platforme[i].x + platforme[i].width;
+                // player.x = platforme[i].x + platforme[i].width;
+                
                 if (player.speedX < 0) {
                     player.speedX = 0
                     // player.accumulationX=0

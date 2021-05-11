@@ -38,6 +38,7 @@ function collide(timerfall, jump, walljumptimer, player, platforme, nbjump, pieg
             nbjump = 0 // Jump number is reset
             // jump = false
             
+            
             player.accumulationY = 0
             
             
@@ -74,6 +75,8 @@ function collide(timerfall, jump, walljumptimer, player, platforme, nbjump, pieg
             }
         }
     }
+        
+    
     // Tests player/enemy collisions
     for (var i = 0; i < ennemi.length; i++) {
         var collideEnnemy = testcollide(player, ennemi[i]) // The program tests the collisions between the player and the enemy
